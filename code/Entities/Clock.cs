@@ -5,27 +5,32 @@ using Editor;
 /// <summary>
 /// Dings when entity interacts.
 /// </summary>
-
-//[Library( "ent_clock" )]
 [HammerEntity, SupportsSolid]
 [RenderFields, VisGroup( VisGroup.Dynamic )]
-[Model( Archetypes = ModelArchetype.animated_model | ModelArchetype.static_prop_model )]
+[EditorModel( "models/sbox_props/fire_alarm/fire_alarm_bell.vmdl_c" )]
 [Title( "Clock" ), Category( "Placeable" ), Icon( "radio_button_checked" )]
-public partial class ClockEntity : Entity, IUse
+public partial class ClockEntity : KeyframeEntity, IUse
 {
 	[Property( Title = "Activation distance" )]
-	public int activationDist { get; set; } = 5;
+	public int activationDist { get; set; } = 100;
 
 	public bool IsUsable( Entity user )
 	{
-		//if ( activationDist > Vector3.DistanceBetween( user.Position, Position ) ) return true;
-		return true;
+		return user is Player && activationDist > Vector3.DistanceBetween(user.Position, Position);
 	}
 
 	public bool OnUse( Entity user )
 	{
 		Log.Info( "DET VIRKER!" );
-		return true;
+		return false;
+	}
+
+	public override void Spawn()
+	{
+		base.Spawn();
+
+		SetModel( "models/sbox_props/fire_alarm/fire_alarm_bell.vmdl_c" );
+		SetupPhysicsFromModel( PhysicsMotionType.Static );
 	}
 }
 
