@@ -18,8 +18,8 @@ public partial class ClockEntity : KeyframeEntity, IUse
 
 	public bool IsUsable( Entity user )
 	{
-		if ( activationDist > Vector3.DistanceBetween( user.Position, Position ) ) return true;
-		return false;
+		//if ( activationDist > Vector3.DistanceBetween( user.Position, Position ) ) return true;
+		return true;
 	}
 
 	public bool OnUse( Entity user )
