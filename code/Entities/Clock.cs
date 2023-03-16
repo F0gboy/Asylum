@@ -15,15 +15,6 @@ using System.Threading.Tasks;
 [Title( "Clock" ), Category( "Placeable" ), Icon( "radio_button_checked" )]
 public partial class ClockEntity : KeyframeEntity, IUse
 {
-	// TODO: Make sure only 1 player can be pressing a button
-	// TOOO: Do not reset the button if it is being continuously pressed in?
-
-	// TODO: SetPosition input?
-	// TODO: start position keyvalue?
-
-	// TODO: Model animations?
-	// TODO: moving sound?
-
 	/// <summary>
 	/// Specifies the direction to move in when the button is used, or axis of rotation for rotating buttons.
 	/// </summary>
