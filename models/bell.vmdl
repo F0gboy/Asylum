@@ -15,7 +15,7 @@
 						[
 							{
 								from = "defaultmaterial.vmat"
-								to = "textures/hotel bell - modelleme - 1_defaultmaterial_albedotransparency.vmat"
+								to = "textures/bell.vmat"
 							},
 						]
 						use_global_default = false
