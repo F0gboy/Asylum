@@ -3,7 +3,7 @@
   "Volume": "1.00,1.00,0",
   "Pitch": "1.00,1.00,0",
   "Decibels": 70,
-  "SelectionMode": "Random",
+  "SelectionMode": "Forward",
   "Sounds": [
     "sound/bell_sound.vsnd"
   ],
