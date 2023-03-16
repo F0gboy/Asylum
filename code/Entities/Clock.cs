@@ -14,6 +14,7 @@ public partial class ClockEntity : KeyframeEntity, IUse
 {
 	public bool IsUsable( Entity user )
 	{
+		if ( user == null ) return false;
 		return true;
 	}
 
