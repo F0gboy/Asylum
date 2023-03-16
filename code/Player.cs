@@ -15,9 +15,6 @@ namespace Sandbox
 
 		private DamageInfo lastDamage;
 
-		[Net, Predicted]
-		public bool ThirdPersonCamera { get; set; }
-
 		/// <summary>
 		/// The clothing container is what dresses the citizen
 		/// </summary>
@@ -65,6 +62,8 @@ namespace Sandbox
 			base.Respawn();
 		}
 
+		
+
 		public override PawnController GetActiveController()
 		{
 			if ( DevController != null ) return DevController;
@@ -109,7 +108,6 @@ namespace Sandbox
 				timeSinceJumpReleased = 1;
 			}
 		}
-
 
 		Entity lastWeapon;
 
@@ -177,64 +175,14 @@ namespace Sandbox
 			return Velocity.WithZ( 0 ).Length.LerpInverse( 0.0f, 200.0f ) * 5.0f;
 		}
 
-		[ConCmd.Server( "inventory_current" )]
-		public static void SetInventoryCurrent( string entName )
-		{
-			var target = ConsoleSystem.Caller.Pawn as Player;
-			if ( target == null ) return;
-
-			var inventory = target.Inventory;
-			if ( inventory == null )
-				return;
-
-			for ( int i = 0; i < inventory.Count(); ++i )
-			{
-				var slot = inventory.GetSlot( i );
-				if ( !slot.IsValid() )
-					continue;
-
-				if ( slot.ClassName != entName )
-					continue;
-
-				inventory.SetActiveSlot( i, false );
-
-				break;
-			}
-		}
-
 		public override void FrameSimulate( IClient cl )
 		{
 			Camera.Rotation = ViewAngles.ToRotation();
 			Camera.FieldOfView = Screen.CreateVerticalFieldOfView( Game.Preferences.FieldOfView );
 
-			if ( ThirdPersonCamera )
-			{
-				Camera.FirstPersonViewer = null;
-
-				Vector3 targetPos;
-				var center = Position + Vector3.Up * 64;
-
-				var pos = center;
-				var rot = Camera.Rotation * Rotation.FromAxis( Vector3.Up, -16 );
-
-				float distance = 130.0f * Scale;
-				targetPos = pos + rot.Right * ((CollisionBounds.Mins.x + 32) * Scale);
-				targetPos += rot.Forward * -distance;
-
-				var tr = Trace.Ray( pos, targetPos )
-					.WithAnyTags( "solid" )
-					.Ignore( this )
-					.Radius( 8 )
-					.Run();
-
-				Camera.Position = tr.EndPosition;
-			}
-			else
-			{
-				Camera.Position = EyePosition;
-				Camera.FirstPersonViewer = this;
-				Camera.Main.SetViewModelCamera( 90f );
-			}
+			Camera.Position = EyePosition;
+			Camera.FirstPersonViewer = this;
+			Camera.Main.SetViewModelCamera( 90f );
 		}
 
 	}

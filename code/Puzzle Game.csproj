@@ -24,6 +24,17 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="ui\Chat\Chat.razor" />
+	  <None Remove="ui\Chat\ChatRow.razor" />
+	  <None Remove="ui\Components\PackageIcon.razor" />
+	  <None Remove="ui\Components\PackageList.razor" />
+	  <None Remove="ui\Components\PackageSortButtonGroup.razor" />
+	  <None Remove="ui\left\EntityList.razor" />
+	  <None Remove="ui\left\ModelList.razor" />
+	  <None Remove="ui\left\NpcList.razor" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<Using Include="Sandbox.Internal.GlobalGameNamespace" Static="true" />
 	</ItemGroup>
 
@@ -35,7 +46,7 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<Analyzer Include="D:\SteamLibrary\steamapps\common\sbox\bin\managed\Sandbox.Generator.dll"/>
+		<Analyzer Include="D:\SteamLibrary\steamapps\common\sbox\bin\managed\Sandbox.Generator.dll" />
 		<Reference Include="D:\SteamLibrary\steamapps\common\sbox\bin\managed/Sandbox.System.dll" />
 		<Reference Include="D:\SteamLibrary\steamapps\common\sbox\bin\managed/Sandbox.Engine.dll" />
 		<Reference Include="D:\SteamLibrary\steamapps\common\sbox\bin\managed/Sandbox.Game.dll" />
@@ -47,6 +58,33 @@
   <ItemGroup>
 		<ProjectReference Include="D:\SteamLibrary\steamapps\common\sbox\addons\base\code\Base.csproj" />
 
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Styles\hud\chatbox.scss">
+      <DependentUpon>%(Filename).cs</DependentUpon>
+    </None>
+    <None Update="Styles\sandbox.scss">
+      <DependentUpon>%(Filename).cs</DependentUpon>
+    </None>
+    <None Update="Styles\spawnmenu\spawnmenu.scss">
+      <DependentUpon>%(Filename).cs</DependentUpon>
+    </None>
+    <None Update="Styles\spawnmenu\_packageicon.scss">
+      <DependentUpon>%(Filename).cs</DependentUpon>
+    </None>
+    <None Update="Styles\spawnmenu\_packagelist.scss">
+      <DependentUpon>%(Filename).cs</DependentUpon>
+    </None>
+    <None Update="Styles\spawnmenu\_tabs.scss">
+      <DependentUpon>%(Filename).cs</DependentUpon>
+    </None>
+    <None Update="Styles\toolbar\toolbar.scss">
+      <DependentUpon>%(Filename).cs</DependentUpon>
+    </None>
+    <None Update="ui\Crosshair.scss">
+      <DependentUpon>%(Filename).cs</DependentUpon>
+    </None>
   </ItemGroup>
 
 </Project>
