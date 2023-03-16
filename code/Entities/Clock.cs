@@ -14,7 +14,6 @@ namespace Sandbox.Entities
 	[Model]
 	public class ClockEntity : Entity
 	{
-		[Property( Title = "Start Disabled" )]
-		public bool StartDisabled { get; set; } = false;
+		
 	}
 }
