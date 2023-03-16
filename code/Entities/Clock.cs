@@ -7,7 +7,7 @@ using Editor;
 /// </summary>
 [HammerEntity, SupportsSolid]
 [RenderFields, VisGroup( VisGroup.Dynamic )]
-[EditorModel( "models/sbox_props/fire_alarm/fire_alarm_bell.vmdl_c" )]
+[Model( Archetypes = ModelArchetype.animated_model | ModelArchetype.static_prop_model )]
 [Title( "Clock" ), Category( "Placeable" ), Icon( "radio_button_checked" )]
 public partial class ClockEntity : KeyframeEntity, IUse
 {
@@ -21,7 +21,7 @@ public partial class ClockEntity : KeyframeEntity, IUse
 
 	public bool OnUse( Entity user )
 	{
-		Log.Info( "DET VIRKER!" );
+		PlaySound( "bell_sound" );
 		return false;
 	}
 
@@ -29,7 +29,6 @@ public partial class ClockEntity : KeyframeEntity, IUse
 	{
 		base.Spawn();
 
-		SetModel( "models/sbox_props/fire_alarm/fire_alarm_bell.vmdl_c" );
 		SetupPhysicsFromModel( PhysicsMotionType.Static );
 	}
 }
