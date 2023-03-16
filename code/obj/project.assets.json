@@ -17,8 +17,8 @@
   "libraries": {
     "Base/1.0.0": {
       "type": "project",
-      "path": "D:\\SteamLibrary\\steamapps\\common\\sbox\\addons\\base\\code\\Base.csproj",
-      "msbuildProject": "D:\\SteamLibrary\\steamapps\\common\\sbox\\addons\\base\\code\\Base.csproj"
+      "path": "../../../../SteamLibrary/steamapps/common/sbox/addons/base/code/Base.csproj",
+      "msbuildProject": "../../../../SteamLibrary/steamapps/common/sbox/addons/base/code/Base.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -27,33 +27,34 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\kag\\.nuget\\packages\\": {}
+    "C:\\Users\\Jasper\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kag\\OneDrive\\Dokumenter\\s&box projects\\Asylum\\code\\Puzzle Game.csproj",
+      "projectUniqueName": "F:\\S&Boxting\\Asylum\\Asylum\\code\\Puzzle Game.csproj",
       "projectName": "Puzzle Game",
-      "projectPath": "C:\\Users\\kag\\OneDrive\\Dokumenter\\s&box projects\\Asylum\\code\\Puzzle Game.csproj",
-      "packagesPath": "C:\\Users\\kag\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\kag\\OneDrive\\Dokumenter\\s&box projects\\Asylum\\code\\obj\\",
+      "projectPath": "F:\\S&Boxting\\Asylum\\Asylum\\code\\Puzzle Game.csproj",
+      "packagesPath": "C:\\Users\\Jasper\\.nuget\\packages\\",
+      "outputPath": "F:\\S&Boxting\\Asylum\\Asylum\\code\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\kag\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Jasper\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {}
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "D:\\SteamLibrary\\steamapps\\common\\sbox\\addons\\base\\code\\Base.csproj": {
-              "projectPath": "D:\\SteamLibrary\\steamapps\\common\\sbox\\addons\\base\\code\\Base.csproj"
+            "F:\\SteamLibrary\\steamapps\\common\\sbox\\addons\\base\\code\\Base.csproj": {
+              "projectPath": "F:\\SteamLibrary\\steamapps\\common\\sbox\\addons\\base\\code\\Base.csproj"
             }
           }
         }
@@ -83,7 +84,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
       }
     }
   }

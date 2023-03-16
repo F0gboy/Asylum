@@ -1,0 +1,14 @@
+
+Layer0
+{
+	shader "complex.vfx"
+
+	TextureColor "textures/hotel bell - modelleme - 1_defaultmaterial_albedotransparency.png"
+	TextureAmbientOcclusion "materials/default/default_ao.tga"
+	TextureNormal "textures/hotel bell - modelleme - 1_defaultmaterial_normal.png"
+	TextureRoughness "materials/default/default_rough.tga"
+	F_METALNESS_TEXTURE 1
+	F_SPECULAR 1
+	TextureMetalness "textures/hotel bell - modelleme - 1_defaultmaterial_metallicsmoothness.png"
+
+}
