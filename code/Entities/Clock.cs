@@ -8,10 +8,16 @@ using System.Threading.Tasks;
 namespace Sandbox.Entities
 {
 
-	[HammerEntity]
-	[Title( "Ding Dong" ), Category( "Placeable" ), Icon( "place" )]
-	[EditorModel( "models/bomberbrick/bomberbrick.vmdl_c" )]
-	public class Clock : Entity, IUse
+	using Sandbox;
+	using Editor;
+
+	/// <summary>
+	/// This entity defines the spawn point of the player in first person shooter gamemodes.
+	/// </summary>
+	[Library( "info_player_start" ), HammerEntity]
+	[Title( "Player Spawnpoint" ), Category( "Player" ), Icon( "place" )]
+	[Model]
+	public class SpawnPoint : Entity, IUse
 	{
 		public bool IsUsable( Entity user )
 		{
