@@ -11,7 +11,7 @@ using Editor;
 [RenderFields, VisGroup( VisGroup.Dynamic )]
 [Model( Archetypes = ModelArchetype.animated_model | ModelArchetype.static_prop_model )]
 [Title( "Clock" ), Category( "Placeable" ), Icon( "radio_button_checked" )]
-public partial class ClockEntity : KeyframeEntity, IUse
+public partial class ClockEntity : Entity, IUse
 {
 	[Property( Title = "Activation distance" )]
 	public int activationDist { get; set; } = 5;
