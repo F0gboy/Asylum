@@ -6,12 +6,12 @@ using Editor;
 /// Dings when entity interacts.
 /// </summary>
 
-[Library( "ent_clock" )]
+//[Library( "ent_clock" )]
 [HammerEntity, SupportsSolid]
 [RenderFields, VisGroup( VisGroup.Dynamic )]
 [Title( "Clock" ), Category( "Placeable" ), Icon( "radio_button_checked" )]
 [Model( Archetypes = ModelArchetype.animated_model | ModelArchetype.static_prop_model )]
-public partial class ClockEntity : KeyframeEntity, IUse
+public partial class ClockEntity : Entity, IUse
 {
 	public bool IsUsable( Entity user )
 	{
