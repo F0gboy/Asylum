@@ -18,14 +18,14 @@ public partial class ClockEntity : KeyframeEntity, IUse
 
 	public bool IsUsable( Entity user )
 	{
-		if ( activationDist < Vector3.DistanceBetween( user.Position, Position ) ) return true;
+		if ( activationDist > Vector3.DistanceBetween( user.Position, Position ) ) return true;
 		return false;
 	}
 
 	public bool OnUse( Entity user )
 	{
 		Log.Info( "DET VIRKER!" );
-		return false;
+		return true;
 	}
 }
 
