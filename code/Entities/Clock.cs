@@ -3,7 +3,7 @@ using System;
 using Editor;
 
 /// <summary>
-/// Dings when entity interacts
+/// Dings when entity interacts.
 /// </summary>
 
 [Library( "ent_clock" )]
