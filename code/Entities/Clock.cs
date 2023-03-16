@@ -1,8 +1,9 @@
 ﻿using Sandbox;
+using System;
 using Editor;
 
 /// <summary>
-/// This entity defines the spawn point of the player in first person shooter gamemodes.
+/// Dings when entity interacts
 /// </summary>
 
 [Library( "ent_clock" )]
@@ -23,5 +24,14 @@ public partial class ClockEntity : KeyframeEntity, IUse
 		Log.Info( "Wtf" );
 
 		return true;
+	}
+
+	public override void Spawn()
+	{
+		base.Spawn();
+
+		Log.Info( "Halloooo" );
+
+		//if ( DeleteOnSpawn ) Delete();
 	}
 }
