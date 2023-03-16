@@ -1,35 +1,34 @@
 {
   "format": 1,
   "restore": {
-    "F:\\S&Boxting\\Asylum\\Asylum\\code\\Puzzle Game.csproj": {}
+    "C:\\Users\\kag\\OneDrive\\Dokumenter\\s&box projects\\Asylum\\code\\Puzzle Game.csproj": {}
   },
   "projects": {
-    "F:\\S&Boxting\\Asylum\\Asylum\\code\\Puzzle Game.csproj": {
+    "C:\\Users\\kag\\OneDrive\\Dokumenter\\s&box projects\\Asylum\\code\\Puzzle Game.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\S&Boxting\\Asylum\\Asylum\\code\\Puzzle Game.csproj",
+        "projectUniqueName": "C:\\Users\\kag\\OneDrive\\Dokumenter\\s&box projects\\Asylum\\code\\Puzzle Game.csproj",
         "projectName": "Puzzle Game",
-        "projectPath": "F:\\S&Boxting\\Asylum\\Asylum\\code\\Puzzle Game.csproj",
-        "packagesPath": "C:\\Users\\Jasper\\.nuget\\packages\\",
-        "outputPath": "F:\\S&Boxting\\Asylum\\Asylum\\code\\obj\\",
+        "projectPath": "C:\\Users\\kag\\OneDrive\\Dokumenter\\s&box projects\\Asylum\\code\\Puzzle Game.csproj",
+        "packagesPath": "C:\\Users\\kag\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kag\\OneDrive\\Dokumenter\\s&box projects\\Asylum\\code\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Jasper\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\kag\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "F:\\SteamLibrary\\steamapps\\common\\sbox\\addons\\base\\code\\Base.csproj": {
-                "projectPath": "F:\\SteamLibrary\\steamapps\\common\\sbox\\addons\\base\\code\\Base.csproj"
+              "D:\\SteamLibrary\\steamapps\\common\\sbox\\addons\\base\\code\\Base.csproj": {
+                "projectPath": "D:\\SteamLibrary\\steamapps\\common\\sbox\\addons\\base\\code\\Base.csproj"
               }
             }
           }
@@ -59,29 +58,28 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "F:\\SteamLibrary\\steamapps\\common\\sbox\\addons\\base\\code\\Base.csproj": {
+    "D:\\SteamLibrary\\steamapps\\common\\sbox\\addons\\base\\code\\Base.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\SteamLibrary\\steamapps\\common\\sbox\\addons\\base\\code\\Base.csproj",
+        "projectUniqueName": "D:\\SteamLibrary\\steamapps\\common\\sbox\\addons\\base\\code\\Base.csproj",
         "projectName": "Base",
-        "projectPath": "F:\\SteamLibrary\\steamapps\\common\\sbox\\addons\\base\\code\\Base.csproj",
-        "packagesPath": "C:\\Users\\Jasper\\.nuget\\packages\\",
-        "outputPath": "F:\\SteamLibrary\\steamapps\\common\\sbox\\addons\\base\\code\\obj\\",
+        "projectPath": "D:\\SteamLibrary\\steamapps\\common\\sbox\\addons\\base\\code\\Base.csproj",
+        "packagesPath": "C:\\Users\\kag\\.nuget\\packages\\",
+        "outputPath": "D:\\SteamLibrary\\steamapps\\common\\sbox\\addons\\base\\code\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Jasper\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\kag\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {}
         },
         "frameworks": {
           "net7.0": {
@@ -114,7 +112,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }
