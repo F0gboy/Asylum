@@ -1,54 +1,99 @@
 ﻿using Sandbox;
-using Sandbox.UI.Construct;
-using System;
-using System.IO;
+using Sandbox.UI;
 using System.Linq;
 using System.Threading.Tasks;
+using static Sandbox.Event;
 
-//
-// You don't need to put things in a namespace, but it doesn't hurt.
-//
-namespace Sandbox;
-
-/// <summary>
-/// This is your game class. This is an entity that is created serverside when
-/// the game starts, and is replicated to the client. 
-/// 
-/// You can use this to create things like HUDs and declare which player class
-/// to use for spawned players.
-/// </summary>
-public partial class MyGame : GameManager
+partial class MyGame : GameManager
 {
 	public MyGame()
 	{
+		if ( Game.IsServer )
+		{
+			// Create the HUD
+			_ = new SandboxHud();
+		}
 	}
 
-	/// <summary>
-	/// A client has joined the server. Make them a pawn to play with
-	/// </summary>
 	public override void ClientJoined( IClient client )
 	{
 		base.ClientJoined( client );
 
-		// Create a pawn for this client to play with
-		var pawn = new MyPlayer(client);
+		var player = new MyPlayer( client);
+		client.Pawn = player;
 
-		pawn.Respawn();
+		player.Respawn();
 
-		client.Pawn = pawn;
+	}
 
-		// Get all of the spawnpoints
-		var spawnpoints = Entity.All.OfType<SpawnPoint>();
+	protected override void OnDestroy()
+	{
+		base.OnDestroy();
+	}
 
-		// chose a random one
-		var randomSpawnPoint = spawnpoints.OrderBy( x => Guid.NewGuid() ).FirstOrDefault();
-
-		// if it exists, place the pawn there
-		if ( randomSpawnPoint != null )
+	static async Task<string> SpawnPackageModel( string packageName, Vector3 pos, Rotation rotation, Sandbox.Entity source )
+	{
+		var package = await Package.Fetch( packageName, false );
+		if ( package == null || package.PackageType != Package.Type.Model || package.Revision == null )
 		{
-			var tx = randomSpawnPoint.Transform;
-			tx.Position = tx.Position + Vector3.Up * 50.0f; // raise it up
-			pawn.Transform = tx;
+			// spawn error particles
+			return null;
 		}
+
+		if ( !source.IsValid ) return null; // source entity died or disconnected or something
+
+		var model = package.GetMeta( "PrimaryAsset", "models/dev/error.vmdl" );
+		var mins = package.GetMeta( "RenderMins", Vector3.Zero );
+		var maxs = package.GetMeta( "RenderMaxs", Vector3.Zero );
+
+		// downloads if not downloads, mounts if not mounted
+		await package.MountAsync();
+
+		return model;
+	}
+
+	static bool CanSpawnPackage( Package package )
+	{
+		if ( package.PackageType != Package.Type.Addon ) return false;
+		if ( !package.Tags.Contains( "runtime" ) ) return false;
+
+		return true;
+	}
+
+	[ClientRpc]
+	internal static void RespawnEntitiesClient()
+	{
+		Sandbox.Game.ResetMap( All.Where( x => !DefaultCleanupFilter( x ) ).ToArray() );
+	}
+
+	static bool DefaultCleanupFilter( Sandbox.Entity ent )
+	{
+		// Basic Source engine stuff
+		var className = ent.ClassName;
+		if ( className == "player" || className == "worldent" || className == "worldspawn" || className == "soundent" || className == "player_manager" )
+		{
+			return false;
+		}
+
+		// When creating entities we only have classNames to work with..
+		// The filtered entities below are created through code at runtime, so we don't want to be deleting them
+		if ( ent == null || !ent.IsValid ) return true;
+
+		// Gamemode entity
+		if ( ent is BaseGameManager ) return false;
+
+		// HUD entities
+		if ( ent.GetType().IsBasedOnGenericType( typeof( HudEntity<> ) ) ) return false;
+
+		// Player related stuff, clothing and weapons
+		foreach ( var cl in Game.Clients )
+		{
+			if ( ent.Root == cl.Pawn ) return false;
+		}
+
+		// Do not delete view model
+		if ( ent is BaseViewModel ) return false;
+
+		return true;
 	}
 }

@@ -5,36 +5,62 @@ using System.Text;
 using System.Threading.Tasks;
 using static Sandbox.Event;
 
+
 namespace Sandbox
 {
-	internal class MyPlayer : Player
+	partial class MyPlayer : Player
 	{
+		private TimeSince timeSinceDropped;
+		private TimeSince timeSinceJumpReleased;
+
+		private DamageInfo lastDamage;
+
+		[Net, Predicted]
+		public bool ThirdPersonCamera { get; set; }
+
+		/// <summary>
+		/// The clothing container is what dresses the citizen
+		/// </summary>
 		public ClothingContainer Clothing = new();
 
-		public MyPlayer() : base()
+		/// <summary>
+		/// Default init
+		/// </summary>
+		public MyPlayer()
 		{
 			Inventory = new Inventory( this );
 		}
 
-		public MyPlayer( IClient client ) : this()
+		/// <summary>
+		/// Initialize using this client
+		/// </summary>
+		public MyPlayer( IClient cl ) : this()
 		{
-			SetModel( "models/citizen/citizen.vmdl" );
-			Clothing.LoadFromClient(client);
+			// Load clothing from client data
+			Clothing.LoadFromClient( cl );
 		}
 
 		public override void Respawn()
 		{
-			Log.Info( "Spawner spiller" );
-			Clothing.DressEntity( this );
+			SetModel( "models/citizen/citizen.vmdl" );
 
 			Controller = new WalkController();
 
+			if ( DevController is NoclipController )
+			{
+				DevController = null;
+			}
+
+			this.ClearWaterLevel();
 			EnableAllCollisions = true;
 			EnableDrawing = true;
 			EnableHideInFirstPerson = true;
 			EnableShadowInFirstPerson = true;
 
-			Inventory.Add( new Flashlight(), true );
+			Clothing.DressEntity( this );
+
+			Inventory.Add( new Flashlight() );
+			Inventory.Add( new Fists() );
 
 			base.Respawn();
 		}
@@ -46,9 +72,9 @@ namespace Sandbox
 			return base.GetActiveController();
 		}
 
-		public override void Simulate( IClient client )
+		public override void Simulate( IClient cl )
 		{
-			base.Simulate( client );
+			base.Simulate( cl );
 
 			var controller = GetActiveController();
 			if ( controller != null )
@@ -57,7 +83,33 @@ namespace Sandbox
 
 				SimulateAnimation( controller );
 			}
+
+			TickPlayerUse();
+			SimulateActiveChild( cl, ActiveChild );
+
+			if ( Input.Released( InputButton.Jump ) )
+			{
+				if ( timeSinceJumpReleased < 0.3f )
+				{
+					if ( DevController is NoclipController )
+					{
+						DevController = null;
+					}
+					else
+					{
+						DevController = new NoclipController();
+					}
+				}
+
+				timeSinceJumpReleased = 0;
+			}
+
+			if ( InputDirection.y != 0 || InputDirection.x != 0f )
+			{
+				timeSinceJumpReleased = 1;
+			}
 		}
+
 
 		Entity lastWeapon;
 
@@ -112,5 +164,78 @@ namespace Sandbox
 
 			lastWeapon = ActiveChild;
 		}
+
+		public override void StartTouch( Entity other )
+		{
+			if ( timeSinceDropped < 1 ) return;
+
+			base.StartTouch( other );
+		}
+
+		public override float FootstepVolume()
+		{
+			return Velocity.WithZ( 0 ).Length.LerpInverse( 0.0f, 200.0f ) * 5.0f;
+		}
+
+		[ConCmd.Server( "inventory_current" )]
+		public static void SetInventoryCurrent( string entName )
+		{
+			var target = ConsoleSystem.Caller.Pawn as Player;
+			if ( target == null ) return;
+
+			var inventory = target.Inventory;
+			if ( inventory == null )
+				return;
+
+			for ( int i = 0; i < inventory.Count(); ++i )
+			{
+				var slot = inventory.GetSlot( i );
+				if ( !slot.IsValid() )
+					continue;
+
+				if ( slot.ClassName != entName )
+					continue;
+
+				inventory.SetActiveSlot( i, false );
+
+				break;
+			}
+		}
+
+		public override void FrameSimulate( IClient cl )
+		{
+			Camera.Rotation = ViewAngles.ToRotation();
+			Camera.FieldOfView = Screen.CreateVerticalFieldOfView( Game.Preferences.FieldOfView );
+
+			if ( ThirdPersonCamera )
+			{
+				Camera.FirstPersonViewer = null;
+
+				Vector3 targetPos;
+				var center = Position + Vector3.Up * 64;
+
+				var pos = center;
+				var rot = Camera.Rotation * Rotation.FromAxis( Vector3.Up, -16 );
+
+				float distance = 130.0f * Scale;
+				targetPos = pos + rot.Right * ((CollisionBounds.Mins.x + 32) * Scale);
+				targetPos += rot.Forward * -distance;
+
+				var tr = Trace.Ray( pos, targetPos )
+					.WithAnyTags( "solid" )
+					.Ignore( this )
+					.Radius( 8 )
+					.Run();
+
+				Camera.Position = tr.EndPosition;
+			}
+			else
+			{
+				Camera.Position = EyePosition;
+				Camera.FirstPersonViewer = this;
+				Camera.Main.SetViewModelCamera( 90f );
+			}
+		}
+
 	}
 }
