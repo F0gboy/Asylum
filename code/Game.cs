@@ -7,6 +7,8 @@ using static Sandbox.StreamPoll;
 
 partial class MyGame : GameManager
 {
+	MyWorldPanel myWorldPanel;
+
 	public MyGame()
 	{
 		if ( Game.IsServer )

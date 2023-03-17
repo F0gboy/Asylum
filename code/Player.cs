@@ -109,6 +109,20 @@ namespace Sandbox
 			}
 		}
 
+		string[] choises = new string[]
+		{
+			"Test",
+			"Hey",
+			"Jump"
+		};
+
+		public override void BuildInput()
+		{
+			base.BuildInput();
+
+			SpeechRecognition.Listen(( output ) => Log.Info(output), choises);
+		}
+
 		Entity lastWeapon;
 
 		void SimulateAnimation( PawnController controller )
