@@ -18,8 +18,8 @@ public partial class ClockEntity : KeyframeEntity, IUse
 	[Property( Title = "Activation distance" )]
 	public int activationDist { get; set; } = 100;
 
-	[Property( Title = "Door" )]
-	public TargetEntity door { get; set; }
+	[Property( Title = "Door name" )]
+	public string doorName { get; set; }
 
 	public bool IsUsable( Entity user )
 	{
@@ -28,12 +28,33 @@ public partial class ClockEntity : KeyframeEntity, IUse
 
 	public bool OnUse( Entity user )
 	{
-		doors.Add( All.FirstOrDefault( x => x is DoorEntity && x.Name == "LobbyDoor" && !doors.Contains( x ) ) as DoorEntity );
+		if ( !user.IsValid() ) return false;
 
-		doors[0].Open();
+		MyGame.AddPlayerReady( user );
+		if ( MyGame.GetPlayersReady() < Game.Clients.Count )
+		{
+			Log.Info( "Ikke nok ready!" );
+			return false;
+		}
+
+		Log.Warning( "Doors opening!" );
+
+		foreach ( var entity in doors )
+		{
+			entity.Open();
+		}
 
 		PlaySound( "bell_sound" );
 		return false;
+	}
+
+	[Event.Entity.PostSpawn]
+	public void AfterSpawn()
+	{
+		while ( All.Any( door => door is DoorEntity && door.Name == doorName && !doors.Contains( door ) ) )
+		{
+			doors.Add( All.FirstOrDefault( door => door is DoorEntity && door.Name == doorName && !doors.Contains( door ) ) as DoorEntity );
+		}
 	}
 
 	public override void Spawn()

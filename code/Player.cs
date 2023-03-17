@@ -57,7 +57,7 @@ namespace Sandbox
 			Clothing.DressEntity( this );
 
 			Inventory.Add( new Flashlight(), true );
-			Inventory.Add( new Fists() );
+			Inventory.Add( new Fists() );	
 
 			base.Respawn();
 		}

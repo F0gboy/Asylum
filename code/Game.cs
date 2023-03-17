@@ -1,5 +1,6 @@
 ﻿using Sandbox;
 using Sandbox.UI;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using static Sandbox.Event;
@@ -9,6 +10,7 @@ partial class MyGame : GameManager
 {
 	MyWorldPanel myWorldPanel;
 	
+	private static List<Sandbox.Entity> playersReady = new ();
 
 	public MyGame()
 	{
@@ -19,16 +21,26 @@ partial class MyGame : GameManager
 		}
 	}
 
-	public static void AddPlayerReady( MyPlayer player )
+	public static void AddPlayerReady( Sandbox.Entity client )
 	{
+		Log.Info( "Before Players ready: " + playersReady.Count + " / " + Game.Clients.Count);
+		if ( playersReady.Contains( client ) ) return;
 
+		playersReady.Add( client );
+
+		Log.Info( "After Players ready: " + playersReady.Count + " / " + Game.Clients.Count );
+	}
+
+	public static int GetPlayersReady()
+	{
+		return playersReady.Count;
 	}
 
 	public override void ClientJoined( IClient client )
 	{
 		base.ClientJoined( client );
 
-		var player = new MyPlayer( client);
+		var player = new MyPlayer( client );
 		client.Pawn = player;
 
 		player.Respawn();
