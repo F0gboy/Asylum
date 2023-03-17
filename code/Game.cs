@@ -8,6 +8,7 @@ using static Sandbox.StreamPoll;
 partial class MyGame : GameManager
 {
 	MyWorldPanel myWorldPanel;
+	
 
 	public MyGame()
 	{
@@ -16,6 +17,11 @@ partial class MyGame : GameManager
 			// Create the HUD
 			_ = new SandboxHud();
 		}
+	}
+
+	public static void AddPlayerReady( MyPlayer player )
+	{
+
 	}
 
 	public override void ClientJoined( IClient client )

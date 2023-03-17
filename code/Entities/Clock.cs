@@ -18,6 +18,9 @@ public partial class ClockEntity : KeyframeEntity, IUse
 	[Property( Title = "Activation distance" )]
 	public int activationDist { get; set; } = 100;
 
+	[Property( Title = "Door" )]
+	public TargetEntity door { get; set; }
+
 	public bool IsUsable( Entity user )
 	{
 		return user is Player && activationDist > Vector3.DistanceBetween(user.Position, Position);
@@ -25,6 +28,10 @@ public partial class ClockEntity : KeyframeEntity, IUse
 
 	public bool OnUse( Entity user )
 	{
+		doors.Add( All.FirstOrDefault( x => x is DoorEntity && x.Name == "LobbyDoor" && !doors.Contains( x ) ) as DoorEntity );
+
+		doors[0].Open();
+
 		PlaySound( "bell_sound" );
 		return false;
 	}
