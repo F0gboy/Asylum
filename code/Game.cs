@@ -11,6 +11,8 @@ partial class MyGame : GameManager
 	MyWorldPanel myWorldPanel;
 	
 	private static List<Sandbox.Entity> playersReady = new ();
+	private bool gameStarted = false;
+	private static bool allPlayersReady = false;
 
 	public MyGame()
 	{
@@ -25,7 +27,7 @@ partial class MyGame : GameManager
 			_ = new PlayersReady();
 
 			var text = $"Players ready: {GetPlayersReady()}/{Game.Clients.Count}";
-			UpdateGameText( To.Single( Game.LocalPawn as MyPlayer), text, true );
+			UpdatePlayerReadyText( To.Single( Game.LocalPawn as MyPlayer), text, true, allPlayersReady);
 		}
 	}
 
@@ -37,9 +39,11 @@ partial class MyGame : GameManager
 
 		var text = $"Players ready: {GetPlayersReady()}/{Game.Clients.Count}";
 
+		if ( GetPlayersReady() == Game.Clients.Count ) allPlayersReady = true;
+
 		foreach (var loopClient in Game.Clients)
 		{
-			UpdateGameText( To.Single( loopClient.Pawn as MyPlayer), text, false);
+			UpdatePlayerReadyText( To.Single( loopClient.Pawn as MyPlayer), text, false, allPlayersReady );
 		}
 	}
 
@@ -61,7 +65,7 @@ partial class MyGame : GameManager
 
 		foreach ( var loopClient in Game.Clients )
 		{
-			UpdateGameText( To.Single( loopClient.Pawn as MyPlayer ), text, false );
+			UpdatePlayerReadyText( To.Single( loopClient.Pawn as MyPlayer ), text, false, allPlayersReady );
 		}
 	}
 
@@ -102,7 +106,7 @@ partial class MyGame : GameManager
 	[ClientRpc]
 	internal static void RespawnEntitiesClient()
 	{
-		Sandbox.Game.ResetMap( All.Where( x => !DefaultCleanupFilter( x ) ).ToArray() );
+		Game.ResetMap( All.Where( x => !DefaultCleanupFilter( x ) ).ToArray() );
 	}
 
 	static bool DefaultCleanupFilter( Sandbox.Entity ent )
@@ -137,9 +141,8 @@ partial class MyGame : GameManager
 	}
 
 	[ClientRpc]
-	public static void UpdateGameText(string text, bool create)
+	public static void UpdatePlayerReadyText(string text, bool create, bool playersReady)
 	{
-		var allPlayerReady = GetPlayersReady() == Game.Clients.Count;
-		Event.Run( "UpdatePlayersReady", text, create, allPlayerReady);
+		Event.Run( "UpdatePlayersReady", text, create, playersReady);
 	}
 }

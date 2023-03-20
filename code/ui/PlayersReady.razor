@@ -40,8 +40,18 @@
 
     public async void DeleteAsync(Panel panel, int timer)
     {
-        Log.Info("Lol");
-        await GameTask.Delay(timer);
+        var addText = string.Empty;
+
+        var loopTimes = 8;
+
+        for (int i = 1; i <= loopTimes; i++)
+        {
+            UpdatePlayersReady("Doors opening" + addText, false, false);
+            await GameTask.Delay(timer / loopTimes);
+
+            if (i % 4 == 0) addText = string.Empty;
+            else addText += ".";
+        }
         panel.Delete();
     }
 
