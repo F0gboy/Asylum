@@ -1,0 +1,49 @@
+@using Sandbox
+@using System
+@using Sandbox.UI;
+@inherits RootPanel
+
+<style> 
+
+    PlayersReady { 
+        display: flex;
+        flex-direction: column;
+        justify-content: top;
+        align-items: center;    
+    }
+    .Text{
+        font-size: 60px;
+        color: white;
+        font-family: Arial;
+        font-weight: 600;
+        text-stroke: 5px black;
+    }
+
+
+</style>
+
+<root>
+</root> 
+
+@code {
+    Label label;
+
+    [Event("UpdatePlayersReady")]
+    public void UpdatePlayersReady(string text, bool create, bool allPlayersReady)
+    {
+        if (create) label = AddChild<Label>("Text");
+
+        if (label.IsValid()) label.SetText(text);
+
+        if (allPlayersReady) DeleteAsync(label, 2000);
+    }
+
+    public async void DeleteAsync(Panel panel, int timer)
+    {
+        Log.Info("Lol");
+        await GameTask.Delay(timer);
+        panel.Delete();
+    }
+
+
+}

@@ -62,8 +62,6 @@ namespace Sandbox
 			base.Respawn();
 		}
 
-		
-
 		public override PawnController GetActiveController()
 		{
 			if ( DevController != null ) return DevController;
@@ -184,6 +182,5 @@ namespace Sandbox
 			Camera.FirstPersonViewer = this;
 			Camera.Main.SetViewModelCamera( 90f );
 		}
-
 	}
 }

@@ -19,16 +19,28 @@ partial class MyGame : GameManager
 			// Create the HUD
 			_ = new SandboxHud();
 		}
+
+		if ( Game.IsClient )
+		{
+			_ = new PlayersReady();
+
+			var text = $"Players ready: {GetPlayersReady()}/{Game.Clients.Count}";
+			UpdateGameText( To.Single( Game.LocalPawn as MyPlayer), text, true );
+		}
 	}
 
 	public static void AddPlayerReady( Sandbox.Entity client )
 	{
-		Log.Info( "Before Players ready: " + playersReady.Count + " / " + Game.Clients.Count);
 		if ( playersReady.Contains( client ) ) return;
 
 		playersReady.Add( client );
 
-		Log.Info( "After Players ready: " + playersReady.Count + " / " + Game.Clients.Count );
+		var text = $"Players ready: {GetPlayersReady()}/{Game.Clients.Count}";
+
+		foreach (var loopClient in Game.Clients)
+		{
+			UpdateGameText( To.Single( loopClient.Pawn as MyPlayer), text, false);
+		}
 	}
 
 	public static int GetPlayersReady()
@@ -45,6 +57,12 @@ partial class MyGame : GameManager
 
 		player.Respawn();
 
+		var text = $"Players ready: {GetPlayersReady()}/{Game.Clients.Count}";
+
+		foreach ( var loopClient in Game.Clients )
+		{
+			UpdateGameText( To.Single( loopClient.Pawn as MyPlayer ), text, false );
+		}
 	}
 
 	protected override void OnDestroy()
@@ -116,5 +134,12 @@ partial class MyGame : GameManager
 		if ( ent is BaseViewModel ) return false;
 
 		return true;
+	}
+
+	[ClientRpc]
+	public static void UpdateGameText(string text, bool create)
+	{
+		var allPlayerReady = GetPlayersReady() == Game.Clients.Count;
+		Event.Run( "UpdatePlayersReady", text, create, allPlayerReady);
 	}
 }
