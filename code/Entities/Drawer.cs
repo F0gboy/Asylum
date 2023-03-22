@@ -37,7 +37,7 @@ namespace Sandbox.Entities
 			startTrans = Transform;
 
 			var tempTrans = new Transform();
-			tempTrans.Position = startTrans.Position + Rotation.Forward * (Model.RenderBounds.Size.x) * 0.9f;
+			tempTrans.Position = startTrans.Position + Rotation.Forward * (Model.RenderBounds.Size.x) * 0.75f;
 			tempTrans.Rotation = startTrans.Rotation;
 			tempTrans.Scale = startTrans.Scale;
 
