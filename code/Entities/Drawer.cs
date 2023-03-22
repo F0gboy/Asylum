@@ -32,7 +32,6 @@ namespace Sandbox.Entities
 		{
 			base.Spawn();
 
-			SetModel( "models/citizen_props/beachball.vmdl" );
 			SetupPhysicsFromModel( PhysicsMotionType.Keyframed );
 
 			startTrans = Transform;
