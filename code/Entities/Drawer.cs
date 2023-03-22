@@ -14,11 +14,17 @@ namespace Sandbox.Entities
 	[Title( "Drawer" ), Category( "Placeable" ), Icon( "door_front" )]
 	public partial class Drawer : KeyframeEntity, IUse
 	{
-		[Property( Title = "Activation distance" )]
+		[Property( Title = "Activation distance" ), Category("Settings")]
 		public int activationDist { get; set; } = 100;
 
-		[Property( Title = "Time for move" )]
+		[Property( Title = "Time for move (Seconds)" ), Category( "Settings" )]
 		public float time { get; set; } = 0.5f;
+
+		[Property( Title = "Open sound" ), Category( "Sounds" )]
+		public string openSound { get; set; } = "";
+
+		[Property( Title = "Close sound" ), Category( "Sounds" )]
+		public string closeSound { get; set; } = "";
 
 		private Transform startTrans;
 		private Transform endTrans;
@@ -57,13 +63,22 @@ namespace Sandbox.Entities
 
 			open = !open;
 
+			Sound playedSound;
+
+			if ( open ) playedSound = PlaySound( openSound );
+			else playedSound = PlaySound( closeSound );
+
 			targetTrans = open ? endTrans : startTrans;
 
 			var move = KeyframeTo( targetTrans, time );
 
 			move.ContinueWith( task =>
 			{
-				if ( task.Result ) isMoving = false;
+				if ( task.Result )
+				{
+					isMoving = false;
+					playedSound.Stop();
+				}
 			} );
 
 			return true;
