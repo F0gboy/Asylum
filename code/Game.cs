@@ -3,8 +3,6 @@ using Sandbox.UI;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using static Sandbox.Event;
-using static Sandbox.StreamPoll;
 
 partial class MyGame : GameManager
 {

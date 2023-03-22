@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sandbox.Component;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,9 @@ namespace Sandbox
 		private TimeSince timeSinceDropped;
 		private TimeSince timeSinceJumpReleased;
 
-		private DamageInfo lastDamage;
+		private Entity markedObject = null;
+
+		string interactTag = "Interact";
 
 		/// <summary>
 		/// The clothing container is what dresses the citizen
@@ -57,7 +60,7 @@ namespace Sandbox
 			Clothing.DressEntity( this );
 
 			Inventory.Add( new Flashlight(), true );
-			Inventory.Add( new Fists() );	
+			Inventory.Add( new Fists() );
 
 			base.Respawn();
 		}
@@ -72,6 +75,32 @@ namespace Sandbox
 		public override void Simulate( IClient cl )
 		{
 			base.Simulate( cl );
+
+			var trace = Trace.Ray( EyePosition, EyePosition + EyeRotation.Forward * 100 )
+				.WithTag(interactTag)
+				.Ignore( this )
+				.Run();
+
+			//Log.Warning( Model.Bounds.Size.x );
+
+			//	DebugOverlay.TraceResult( trace );
+			
+
+			if ( trace.Hit && trace.Entity is Entity ent && !markedObject.IsValid() )
+			{
+				markedObject = ent;
+
+				var glow = ent.Components.GetOrCreate<Glow>();
+				glow.Color = Color.White;
+				glow.Width = 0.5f;
+				glow.Enabled = true;
+			}
+
+			else if ( markedObject.IsValid() && trace.Entity != markedObject || !trace.Hit && markedObject.IsValid())
+			{
+				markedObject.Components.GetOrCreate<Glow>().Enabled = false;
+				markedObject = null;
+			}
 
 			var controller = GetActiveController();
 			if ( controller != null )
