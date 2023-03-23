@@ -24,7 +24,7 @@ partial class Flashlight : BaseWeapon
 		SetModel( "weapons/rust_pistol/rust_pistol.vmdl" );
 
 		worldLight = CreateLight();
-		worldLight.SetParent( this, "slide", new Transform( LightOffset ) );
+		worldLight.SetParent( this, "slide", new Transform( this.Rotation.Forward * (-10) ) );
 		worldLight.EnableHideInFirstPerson = true;
 		worldLight.Enabled = false;
 	}
@@ -34,7 +34,7 @@ partial class Flashlight : BaseWeapon
 		base.CreateViewModel();
 
 		viewLight = CreateLight();
-		viewLight.SetParent( ViewModelEntity, "light", new Transform( LightOffset ) );
+		viewLight.SetParent( ViewModelEntity, "light", new Transform( ViewModelEntity.Rotation.Forward * (-10) ) );
 		viewLight.EnableViewmodelRendering = true;
 		viewLight.Enabled = LightEnabled;
 	}
