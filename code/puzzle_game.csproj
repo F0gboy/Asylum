@@ -3,8 +3,8 @@
 	<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<AssemblyName>Puzzle Game</AssemblyName>
-		<PackageId>Puzzle Game</PackageId>
+		<AssemblyName>puzzle_game</AssemblyName>
+		<PackageId>puzzle_game</PackageId>
 		<LangVersion>11</LangVersion>
 		<NoWarn>1701;1702;1591;</NoWarn>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
@@ -29,7 +29,7 @@
 
   <PropertyGroup>
 	<OutputPath>C:\Program Files (x86)\Steam\steamapps\common\sbox/.vs/output/</OutputPath>
-	<DocumentationFile>C:\Program Files (x86)\Steam\steamapps\common\sbox/.vs/output/Puzzle Game.xml</DocumentationFile>
+	<DocumentationFile>C:\Program Files (x86)\Steam\steamapps\common\sbox/.vs/output/puzzle_game.xml</DocumentationFile>
 	<RootNamespace>Sandbox</RootNamespace>
 	<Nullable>disable</Nullable>
   </PropertyGroup>
