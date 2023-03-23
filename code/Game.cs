@@ -27,6 +27,8 @@ partial class MyGame : GameManager
 		{
 			_ = new PlayersReady();
 
+			_ = new BellUI();
+			
 			var text = $"Players ready: {GetPlayersReady()}/{Game.Clients.Count}";
 			UpdatePlayerReadyText( To.Single( Game.LocalPawn as MyPlayer), text, true, allPlayersReady);
 		}

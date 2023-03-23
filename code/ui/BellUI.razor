@@ -1,0 +1,30 @@
+@using Sandbox
+@inherits Sandbox.UI.WorldPanel
+
+<style>
+    BellUI { 
+        color: white;
+        font-size: 20px;
+        
+    }
+
+</style>
+
+<root>
+    <div>Japper da Dapper er en wapper</div>
+</root>
+
+@code {
+    [Event.Entity.PostSpawn]
+    protected void OnSpawn()
+    {
+        var bellUI = new BellUI();
+        var clock = Entity.FindByName("LobbyClock");
+        bellUI.Position = clock.Position + new Vector3(0, 0, 0);
+
+        var dummy_parent = new SceneObject(SceneObject.World, "");
+        dummy_parent.Position = Position;
+        dummy_parent.AddChild("bilboard", this.SceneObject);
+        SceneObject.Position = -this.PanelBounds.Center;
+    }
+}
