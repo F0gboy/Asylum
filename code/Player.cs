@@ -38,6 +38,8 @@ namespace Sandbox
 		{
 			// Load clothing from client data
 			Clothing.LoadFromClient( cl );
+
+			Log.Info( "Test" );
 		}
 
 		public override void Respawn()
