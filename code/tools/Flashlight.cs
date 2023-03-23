@@ -7,7 +7,7 @@ partial class Flashlight : BaseWeapon
 	public override string ViewModelPath => "weapons/rust_flashlight/v_rust_flashlight.vmdl";
 	public override float SecondaryRate => 2.0f;
 
-	protected virtual Vector3 LightOffset => Vector3.Forward * 10;
+	protected virtual Vector3 LightOffset => 0;
 
 	private SpotLightEntity worldLight;
 	private SpotLightEntity viewLight;
@@ -46,10 +46,10 @@ partial class Flashlight : BaseWeapon
 			Enabled = true,
 			DynamicShadows = true,
 			Range = 512,
-			Falloff = 1.0f,
+			Falloff = .5f,
 			LinearAttenuation = 0.0f,
 			QuadraticAttenuation = 1.0f,
-			Brightness = 2,
+			Brightness = .5f,
 			Color = Color.White,
 			InnerConeAngle = 20,
 			OuterConeAngle = 40,

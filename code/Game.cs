@@ -1,4 +1,5 @@
 ﻿using Sandbox;
+using Sandbox.Entities;
 using Sandbox.UI;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,8 @@ partial class MyGame : GameManager
 	private static List<Sandbox.Entity> playersReady = new ();
 	private bool gameStarted = false;
 	private static bool allPlayersReady = false;
+
+	public static List<Key> keysCollected { get; private set; } = new ();
 
 	public MyGame()
 	{
@@ -143,5 +146,12 @@ partial class MyGame : GameManager
 	public static void UpdatePlayerReadyText(string text, bool create, bool playersReady)
 	{
 		Event.Run( "UpdatePlayersReady", text, create, playersReady);
+	}
+
+	[Event("KeyCollected")]
+	public void KeyCollected( Key keyCollected )
+	{
+		keysCollected.Add( keyCollected );
+		Log.Info("Key collected" );
 	}
 }
