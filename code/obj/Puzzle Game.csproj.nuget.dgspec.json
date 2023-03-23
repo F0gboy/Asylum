@@ -27,64 +27,10 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\SteamLibrary\\steamapps\\common\\sbox\\addons\\base\\code\\Base.csproj": {
-                "projectPath": "D:\\SteamLibrary\\steamapps\\common\\sbox\\addons\\base\\code\\Base.csproj"
+              "C:\\Program Files (x86)\\Steam\\steamapps\\common\\sbox\\addons\\base\\code\\Base.csproj": {
+                "projectPath": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\sbox\\addons\\base\\code\\Base.csproj"
               }
             }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        }
-      },
-      "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "D:\\SteamLibrary\\steamapps\\common\\sbox\\addons\\base\\code\\Base.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "D:\\SteamLibrary\\steamapps\\common\\sbox\\addons\\base\\code\\Base.csproj",
-        "projectName": "Base",
-        "projectPath": "D:\\SteamLibrary\\steamapps\\common\\sbox\\addons\\base\\code\\Base.csproj",
-        "packagesPath": "C:\\Users\\kag\\.nuget\\packages\\",
-        "outputPath": "D:\\SteamLibrary\\steamapps\\common\\sbox\\addons\\base\\code\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\kag\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "net7.0"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {}
-        },
-        "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
-            "projectReferences": {}
           }
         },
         "warningProperties": {

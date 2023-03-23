@@ -1,8 +1,18 @@
 {
   "version": 2,
-  "dgSpecHash": "+xvq2cj3cvzRW5HhfgXagPtjZTSbWpuSyesIm6kId1+yEF6/BUEgl0UF5BfgTkCbKNTG/ewOYdo3WWdfrcQGKw==",
-  "success": true,
-  "projectFilePath": "C:\\Users\\asger\\Documents\\s&box projects\\Asylum\\code\\puzzle_game.csproj",
+  "dgSpecHash": "sWvphO+DyH75HBjF00GSBTY7Jej60LW7sKv2p1Aq/ErX7PS/t/AFIrnHfkMZbSjJsI0vii2I353wtIAu/vTBfA==",
+  "success": false,
+  "projectFilePath": "C:\\Users\\kag\\OneDrive\\Dokumenter\\s&box projects\\Asylum\\code\\Puzzle Game.csproj",
   "expectedPackageFiles": [],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1104",
+      "level": "Error",
+      "message": "Unable to find project 'C:\\Program Files (x86)\\Steam\\steamapps\\common\\sbox\\addons\\base\\code\\Base.csproj'. Check that the project reference is valid and that the project file exists.",
+      "libraryId": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\sbox\\addons\\base\\code\\Base.csproj",
+      "targetGraphs": [
+        "net7.0"
+      ]
+    }
+  ]
 }

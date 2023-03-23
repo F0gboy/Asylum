@@ -38,13 +38,13 @@ namespace Sandbox
 		{
 			// Load clothing from client data
 			Clothing.LoadFromClient( cl );
-
-			Log.Info( "Test" );
 		}
 
 		public override void Respawn()
 		{
 			SetModel( "models/citizen/citizen.vmdl" );
+
+			Log.Info( "huh" );
 
 			Controller = new WalkController();
 
