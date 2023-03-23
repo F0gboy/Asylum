@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sandbox.Entities
 {
-	internal class Lock
+	public partial class Lock : , IUse
 	{
 	}
 }

@@ -1,8 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "+xvq2cj3cvzRW5HhfgXagPtjZTSbWpuSyesIm6kId1+yEF6/BUEgl0UF5BfgTkCbKNTG/ewOYdo3WWdfrcQGKw==",
+  "dgSpecHash": "3U2dEO5bS+dKws2m1IKwxQ8EB4jOOQ3I3aLZGzZsPYDfnPBoi6BPFWVpfUGonxHJrZl4Vayh6Y2BFL8f0G6L4Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\asger\\Documents\\s&box projects\\Asylum\\code\\puzzle_game.csproj",
+  "projectFilePath": "C:\\Users\\kag\\OneDrive\\Dokumenter\\s&box projects\\Asylum\\code\\Puzzle Game.csproj",
   "expectedPackageFiles": [],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\kag\\OneDrive\\Dokumenter\\s&box projects\\Asylum\\code\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
