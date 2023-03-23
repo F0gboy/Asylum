@@ -1,4 +1,5 @@
 ﻿using Sandbox;
+using Sandbox.Entities;
 using Sandbox.UI;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,8 @@ partial class MyGame : GameManager
 	private bool gameStarted = false;
 	private static bool allPlayersReady = false;
 
+	public static List<Key> keysCollected { get; private set; } = new ();
+
 	public MyGame()
 	{
 		if ( Game.IsServer )
@@ -22,8 +25,12 @@ partial class MyGame : GameManager
 
 		if ( Game.IsClient )
 		{
+			_ = new Countdown();
+
 			_ = new PlayersReady();
 
+			_ = new BellUI();
+			
 			var text = $"Players ready: {GetPlayersReady()}/{Game.Clients.Count}";
 			UpdatePlayerReadyText( To.Single( Game.LocalPawn as MyPlayer), text, true, allPlayersReady);
 		}
@@ -142,5 +149,12 @@ partial class MyGame : GameManager
 	public static void UpdatePlayerReadyText(string text, bool create, bool playersReady)
 	{
 		Event.Run( "UpdatePlayersReady", text, create, playersReady);
+	}
+
+	[Event("KeyCollected")]
+	public void KeyCollected( Key keyCollected )
+	{
+		keysCollected.Add( keyCollected );
+		Log.Info("Key collected" );
 	}
 }
