@@ -76,7 +76,7 @@ namespace Sandbox
 		{
 			base.Simulate( cl );
 
-			var trace = Trace.Ray( EyePosition, EyePosition + EyeRotation.Forward * 95 )
+			var trace = Trace.Ray( EyePosition, EyePosition + EyeRotation.Forward * 100 )
 				.WithTag(interactTag)
 				.Ignore( this )
 				.Run();
