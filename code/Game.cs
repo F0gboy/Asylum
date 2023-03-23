@@ -25,6 +25,8 @@ partial class MyGame : GameManager
 
 		if ( Game.IsClient )
 		{
+			_ = new Countdown();
+
 			_ = new PlayersReady();
 
 			_ = new BellUI();
