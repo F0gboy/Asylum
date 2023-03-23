@@ -9,7 +9,7 @@ namespace Sandbox.Entities
 {
 	[HammerEntity, SupportsSolid]
 	[RenderFields, VisGroup( VisGroup.Dynamic )]
-	[Model( Archetypes = ModelArchetype.static_prop_model )]
+	[Model( Archetypes = ModelArchetype.physics_prop_model )]
 	[Title( "Basement key" ), Category( "Lock & Key" ), Icon( "door_front" )]
 	public partial class Key : KeyframeEntity, IUse
 	{
@@ -23,8 +23,7 @@ namespace Sandbox.Entities
 		{
 			base.Spawn();
 
-			SetModel( "models/citizen_props/beachball.vmdl" );
-			SetupPhysicsFromModel( PhysicsMotionType.Keyframed );
+			SetupPhysicsFromModel( PhysicsMotionType.Dynamic );
 		}
 
 		public bool IsUsable( Entity user )
