@@ -44,6 +44,8 @@ namespace Sandbox
 		{
 			SetModel( "models/citizen/citizen.vmdl" );
 
+			Log.Info( "huh" );
+
 			Controller = new WalkController();
 
 			if ( DevController is NoclipController )
