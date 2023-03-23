@@ -46,13 +46,6 @@ public partial class ClockEntity : KeyframeEntity, IUse
 	public void AfterSpawn()
 	{
 		doors.AddRange( Entity.FindAllByName( doorName ) );
-
-		Components.Add( new Glow() );
-
-		var glow = Components.Get<Glow>();
-		glow.Color = Color.White;
-		glow.Width = 0.5f;
-		glow.Enabled = false;
 	}
 
 	public override void Spawn()

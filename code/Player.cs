@@ -44,6 +44,18 @@ namespace Sandbox
 		{
 			SetModel( "models/citizen/citizen.vmdl" );
 
+			var pointLight = new PointLightEntity()
+			{
+				Position = Model.Bounds.Center,
+				Range = 50,
+				Color = Color.White,
+				Brightness = 0.0025f,
+				Falloff = 10,
+				Parent = this
+			};
+
+			
+
 			Controller = new WalkController();
 
 			if ( DevController is NoclipController )
