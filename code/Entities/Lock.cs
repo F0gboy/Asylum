@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace Sandbox.Entities
 {
-	public partial class Lock : , IUse
+	public partial class Lock : KeyframeEntity, IUse
 	{
+		public bool IsUsable( Entity user )
+		{
+			throw new NotImplementedException();
+		}
+
+		public bool OnUse( Entity user )
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
