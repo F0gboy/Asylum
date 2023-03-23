@@ -49,7 +49,7 @@ namespace Sandbox
 				Position = Model.Bounds.Center,
 				Range = 100,
 				Color = Color.White,
-				Brightness = 0.00035f,
+				Brightness = 0.0005f,
 				Falloff = 50,
 				Parent = this
 			};
