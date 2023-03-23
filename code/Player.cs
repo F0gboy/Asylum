@@ -47,10 +47,10 @@ namespace Sandbox
 			var pointLight = new PointLightEntity()
 			{
 				Position = Model.Bounds.Center,
-				Range = 50,
+				Range = 100,
 				Color = Color.White,
-				Brightness = 0.0025f,
-				Falloff = 10,
+				Brightness = 0.0005f,
+				Falloff = 50,
 				Parent = this
 			};
 
