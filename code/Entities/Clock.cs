@@ -16,10 +16,10 @@ public partial class ClockEntity : KeyframeEntity, IUse
 {
 	List<Entity> doors = new ();
 
-	[Property( Title = "Activation distance" )]
+	[Property( Title = "Activation distance" ), Category("Settings")]
 	public int activationDist { get; set; } = 100;
 
-	[Property( Title = "Door name" )]
+	[Property( Title = "Door name" ), Category( "Settings" )]
 	public string doorName { get; set; }
 
 	public bool IsUsable( Entity user )
@@ -35,8 +35,6 @@ public partial class ClockEntity : KeyframeEntity, IUse
 
 		MyGame.AddPlayerReady( user );
 		if ( MyGame.GetPlayersReady() < Game.Clients.Count ) return false;
-
-		Log.Warning( "Doors opening!" );
 
 		foreach ( DoorEntity entity in doors ) entity.Open();
 
@@ -54,12 +52,6 @@ public partial class ClockEntity : KeyframeEntity, IUse
 		glow.Color = Color.White;
 		glow.Width = 0.5f;
 		glow.Enabled = false;
-		/*
-		while ( All.Any( door => door is DoorEntity && door.Name == doorName && !doors.Contains( door ) ) )
-		{
-			doors.Add( All.FirstOrDefault( door => door is DoorEntity && door.Name == doorName && !doors.Contains( door ) ) as DoorEntity );
-		}
-		*/
 	}
 
 	public override void Spawn()
