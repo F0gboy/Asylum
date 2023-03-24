@@ -64,10 +64,15 @@ namespace Sandbox
 			}
 
 			this.ClearWaterLevel();
+
 			EnableAllCollisions = true;
 			EnableDrawing = true;
 			EnableHideInFirstPerson = true;
 			EnableShadowInFirstPerson = true;
+			EnableTouch = true;
+			EnableLagCompensation = true;
+			Predictable = true;
+			EnableHitboxes = true;
 
 			Clothing.DressEntity( this );
 
@@ -88,7 +93,7 @@ namespace Sandbox
 		{
 			base.Simulate( cl );
 
-			var trace = Trace.Ray( EyePosition, EyePosition + EyeRotation.Forward * 80 )
+			var trace = Trace.Ray( EyePosition, EyePosition + EyeRotation.Forward * 85 )
 				.WithTag(interactTag)
 				.Ignore( this )
 				.Run();
