@@ -4,6 +4,7 @@ using Editor;
 using System.Linq;
 using System.Collections.Generic;
 using Sandbox.Component;
+using Sandbox.UI;
 
 /// <summary>
 /// Dings when entity interacts.
@@ -11,7 +12,7 @@ using Sandbox.Component;
 [HammerEntity, SupportsSolid]
 [RenderFields, VisGroup( VisGroup.Dynamic )]
 [Model]
-[Title( "Clock" ), Category( "Placeable" ), Icon( "radio_button_checked" )]
+[Title( "Clock" ), Category( "Lobby" ), Icon( "radio_button_checked" )]
 public partial class ClockEntity : KeyframeEntity, IUse
 {
 	List<Entity> doors = new ();
@@ -44,15 +45,7 @@ public partial class ClockEntity : KeyframeEntity, IUse
 	[Event.Entity.PostSpawn]
 	public void AfterSpawn()
 	{
-		Log.Info( "Hej" );
 		doors.AddRange( Entity.FindAllByName( doorName ) );
-
-		Components.Add( new Glow() );
-
-		var glow = Components.Get<Glow>();
-		glow.Color = Color.White;
-		glow.Width = 0.5f;
-		glow.Enabled = false;
 	}
 
 	public override void Spawn()
@@ -61,19 +54,6 @@ public partial class ClockEntity : KeyframeEntity, IUse
 		
 		//Brug måske SetAnimParameter(Name, Value)
 		SetupPhysicsFromModel( PhysicsMotionType.Static );
-	}
-
-	[ClientRpc]
-	public void SpawnPanel()
-	{
-		var bellUI = new BellUI();
-		bellUI.Position = Position + new Vector3( 0, 0, 0 );
-		bellUI.ElementName = "ClockUI";
-
-		var dummy_parent = new SceneObject( SceneObject.World, "" );
-		dummy_parent.Position = Position;
-		dummy_parent.AddChild( "ClockUI", this.SceneObject );
-		SceneObject.Position = -this.Model.Bounds.Center;
 	}
 }
 

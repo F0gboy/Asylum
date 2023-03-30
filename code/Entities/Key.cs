@@ -9,27 +9,27 @@ namespace Sandbox.Entities
 {
 	[HammerEntity, SupportsSolid]
 	[RenderFields, VisGroup( VisGroup.Dynamic )]
-	[Model( Archetypes = ModelArchetype.static_prop_model )]
-	[Title( "Basement key" ), Category( "Placeable" ), Icon( "radio_button_checked" )]
+	[Model( Archetypes = ModelArchetype.physics_prop_model )]
+	[Title( "Basement key" ), Category( "Lock & Key" ), Icon( "door_front" )]
 	public partial class Key : KeyframeEntity, IUse
 	{
 		[Property( Title = "Activation distance" ), Category( "Settings" )]
 		public int activationDist { get; private set; } = 100;
 
-		[Property( Title = "Name of door to open" ), Category( "Settings" )]
-		public string doorOpenName { get; private set; } = "";
+		[Property( Title = "Door to open" ), Category( "Settings" )]
+		public EntityTarget door { get; private set; } = null;
 
 		public override void Spawn()
 		{
 			base.Spawn();
 
-			SetModel( "models/citizen_props/beachball.vmdl" );
-			SetupPhysicsFromModel( PhysicsMotionType.Keyframed );
+			SetupPhysicsFromModel( PhysicsMotionType.Dynamic );
 		}
 
 		public bool IsUsable( Entity user )
 		{
-			return user is Player && activationDist > Vector3.DistanceBetween( user.Position, Position );
+			var pawn = user as MyPlayer;
+			return user is Player && activationDist > Vector3.DistanceBetween( pawn.EyePosition, Position );
 		}
 
 		public bool OnUse( Entity user )

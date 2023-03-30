@@ -44,6 +44,18 @@ namespace Sandbox
 		{
 			SetModel( "models/citizen/citizen.vmdl" );
 
+			var pointLight = new PointLightEntity()
+			{
+				Position = Model.Bounds.Center,
+				Range = 100,
+				Color = Color.White,
+				Brightness = 0.0005f,
+				Falloff = 50,
+				Parent = this
+			};
+
+			
+
 			Controller = new WalkController();
 
 			if ( DevController is NoclipController )
@@ -52,10 +64,15 @@ namespace Sandbox
 			}
 
 			this.ClearWaterLevel();
+
 			EnableAllCollisions = true;
 			EnableDrawing = true;
 			EnableHideInFirstPerson = true;
 			EnableShadowInFirstPerson = true;
+			EnableTouch = true;
+			EnableLagCompensation = true;
+			Predictable = true;
+			EnableHitboxes = true;
 
 			Clothing.DressEntity( this );
 
@@ -76,7 +93,7 @@ namespace Sandbox
 		{
 			base.Simulate( cl );
 
-			var trace = Trace.Ray( EyePosition, EyePosition + EyeRotation.Forward * 95 )
+			var trace = Trace.Ray( EyePosition, EyePosition + EyeRotation.Forward * 85 )
 				.WithTag(interactTag)
 				.Ignore( this )
 				.Run();
