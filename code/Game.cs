@@ -1,6 +1,7 @@
 ﻿using Sandbox;
 using Sandbox.Entities;
 using Sandbox.UI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -104,6 +105,25 @@ partial class MyGame : GameManager
 		if ( !package.Tags.Contains( "runtime" ) ) return false;
 
 		return true;
+	}
+
+	public static float MapRange( float x, float inMin, float inMax, float outMin, float outMax )
+	{
+		// Map the input range to the output range
+		var mappedValue = (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
+
+		// Clamp the mapped value to the output range
+		// Clamp the mapped value to the output range
+		if ( mappedValue < outMin )
+		{
+			mappedValue = outMin;
+		}
+		else if ( mappedValue > outMax )
+		{
+			mappedValue = outMax;
+		}
+
+		return mappedValue;
 	}
 
 	[ClientRpc]
