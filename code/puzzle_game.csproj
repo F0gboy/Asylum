@@ -24,6 +24,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="ui\papers\Paper1.razor" />
+	  <None Remove="ui\papers\Paper2.razor" />
+	  <None Remove="ui\papers\Paper3.razor" />
+	  <None Remove="ui\papers\Paper4.razor" />
+	  <None Remove="ui\papers\Paper5.razor" />
+	  <None Remove="ui\papers\Paper6.razor" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<Using Include="Sandbox.Internal.GlobalGameNamespace" Static="true" />
 	</ItemGroup>
 
@@ -35,7 +44,7 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<Analyzer Include="C:\Program Files (x86)\Steam\steamapps\common\sbox\bin\managed\Sandbox.Generator.dll"/>
+		<Analyzer Include="C:\Program Files (x86)\Steam\steamapps\common\sbox\bin\managed\Sandbox.Generator.dll" />
 		<Reference Include="C:\Program Files (x86)\Steam\steamapps\common\sbox\bin\managed/Sandbox.System.dll" />
 		<Reference Include="C:\Program Files (x86)\Steam\steamapps\common\sbox\bin\managed/Sandbox.Engine.dll" />
 		<Reference Include="C:\Program Files (x86)\Steam\steamapps\common\sbox\bin\managed/Sandbox.Game.dll" />
@@ -47,6 +56,10 @@
   <ItemGroup>
 		<ProjectReference Include="C:\Program Files (x86)\Steam\steamapps\common\sbox\addons\base\code\Base.csproj" />
 
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ui\Papers\" />
   </ItemGroup>
 
 </Project>
