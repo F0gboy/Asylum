@@ -1,4 +1,5 @@
 ﻿using Sandbox;
+using System.Numerics;
 
 [Spawnable]
 [Library( "weapon_flashlight", Title = "Flashlight" )]
