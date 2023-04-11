@@ -16,7 +16,7 @@ namespace Sandbox
 
 		private Entity markedObject = null;
 
-		string[] tags = { "Interact", "Hit" };
+		string[] tags = { "Interact", "Hit", "paper1" };
 
 		string interactTag = "Interact";
 
@@ -51,8 +51,8 @@ namespace Sandbox
 				Position = Model.Bounds.Center,
 				Range = 100,
 				Color = Color.White,
-				Brightness = 0.0005f,
-				Falloff = 50,
+				Brightness = 0.005f,
+				QuadraticAttenuation = 500,
 				Parent = this
 			};
 
@@ -94,7 +94,7 @@ namespace Sandbox
 		public override void Simulate( IClient cl )
 		{
 			base.Simulate( cl );
-
+			
 			var trace = Trace.Ray( EyePosition, EyePosition + EyeRotation.Forward * 85 )
 				.WithAnyTags( tags )
 				.Ignore( this )
