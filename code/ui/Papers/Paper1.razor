@@ -14,14 +14,35 @@
         height: 700px;
         margin-top: -350px;
         margin-left: -250px;
-        background-image: url(textures/Patient1.png);
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
         z-index: 1;
         pointer-events: all;
     }
+    .paperet {
+        background-image: url(textures/Patient1.png);
+    }
 
+    .paperto {
+        background-image: url(textures/Patient2.png);
+    }
+
+    .papertre {
+        background-image: url(textures/Patient3.png);
+    }
+
+    .paperfire {
+        background-image: url(textures/Patient4.png);
+    }
+
+    .paperfem {
+        background-image: url(textures/Patient5.png);
+    }
+
+    .paperseks {
+        background-image: url(textures/Patient6.png);
+    }
     .custom-button {
         position: absolute;
         top: 20px;
@@ -45,7 +66,27 @@
     }
 </style>
 <root>
-    <div class="papercss  @(IsOpen ? "" : "hidden-paper")">
+    <div class="papercss paperet  @(IsOpen ? "" : "hidden-paper")">
+        <button class="custom-button" @onclick="@Close">Close</button>
+    </div>
+
+    <div class="papercss paperto  @(IsOpen ? "" : "hidden-paper")">
+        <button class="custom-button" @onclick="@Close">Close</button>
+    </div>
+
+    <div class="papercss papertre  @(IsOpen ? "" : "hidden-paper")">
+        <button class="custom-button" @onclick="@Close">Close</button>
+    </div>
+
+    <div class="papercss paperfire  @(IsOpen ? "" : "hidden-paper")">
+        <button class="custom-button" @onclick="@Close">Close</button>
+    </div>
+
+    <div class="papercss paperfem  @(IsOpen ? "" : "hidden-paper")">
+        <button class="custom-button" @onclick="@Close">Close</button>
+    </div>
+
+    <div class="papercss paperseks  @(IsOpen ? "" : "hidden-paper")">
         <button class="custom-button" @onclick="@Close">Close</button>
     </div>
 </root>
