@@ -16,7 +16,7 @@ namespace Sandbox
 
 		private Entity markedObject = null;
 
-		string[] tags = { "Interact", "Hit", "paper" };
+		string[] tags = { "Interact", "Hit" };
 
 		string interactTag = "Interact";
 
@@ -107,6 +107,7 @@ namespace Sandbox
 
 			if ( trace.Hit && trace.Entity is Entity ent && !markedObject.IsValid() && ent.Tags.Has( interactTag ) )
 			{
+				Log.Info( ent.Name );
 				markedObject = ent;
 
 				var glow = ent.Components.GetOrCreate<Glow>();

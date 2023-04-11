@@ -25,7 +25,8 @@ public partial class ClockEntity : KeyframeEntity, IUse
 
 	public bool IsUsable( Entity user )
 	{
-		return user is Player && activationDist > Vector3.DistanceBetween(user.Position, Position);
+		var pawn = user.Client.Pawn as MyPlayer;
+		return user is Player && activationDist > Vector3.DistanceBetween( pawn.EyePosition, Position );
 	}
 
 	public bool OnUse( Entity user )
