@@ -10,7 +10,7 @@ namespace Sandbox.Entities
 	[HammerEntity, SupportsSolid]
 	[RenderFields, VisGroup( VisGroup.Dynamic )]
 	[Model]
-	[Title( "Clock" ), Category( "Lobby" ), Icon( "radio_button_checked" )]
+	[Title( "Paper" ), Category( "Lobby" ), Icon( "radio_button_checked" )]
 	internal class Paper : KeyframeEntity, IUse
 	{
 		[Property( Title = "Activation distance" ), Category( "Settings" )]
@@ -25,7 +25,7 @@ namespace Sandbox.Entities
 		{
 			var num = Convert.ToInt32( Name );
 
-
+			//MyGame.papers.
 
 			return false;
 		}
