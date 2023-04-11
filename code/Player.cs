@@ -96,7 +96,7 @@ namespace Sandbox
 			base.Simulate( cl );
 			
 			var trace = Trace.Ray( EyePosition, EyePosition + EyeRotation.Forward * 85 )
-				.WithAnyTags( tags )
+				//.WithAnyTags( tags )
 				.Ignore( this )
 				.Run();
 
@@ -107,7 +107,6 @@ namespace Sandbox
 
 			if ( trace.Hit && trace.Entity is Entity ent && !markedObject.IsValid() && ent.Tags.Has( interactTag ) )
 			{
-				Log.Info( ent.Name );
 				markedObject = ent;
 
 				var glow = ent.Components.GetOrCreate<Glow>();

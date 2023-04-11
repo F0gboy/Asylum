@@ -1,3 +1,5 @@
+@using Sandbox
+@using System
 @inherits Sandbox.UI.RootPanel
 
 <style>
@@ -43,6 +45,24 @@
 </style>
 <root> 
     <div class="box">
-        <p>30.00</p>
+        <p>@countdownTime</p>
     </div>
 </root>
+
+@code{
+    private float countdownTime = 30;
+    private int interval = 15; //Seconds
+
+    public async void StartCountdown()
+    {
+        while (countdownTime > 0)
+        {
+            await GameTask.Delay(1000);
+            countdownTime--;
+
+            if (countdownTime % interval == 0) PlaySound("bell_sound");
+
+            StateHasChanged();
+		}
+    }
+}

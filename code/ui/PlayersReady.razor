@@ -34,7 +34,11 @@
 
         if (label.IsValid()) label.SetText(text);
 
-        if (allPlayersReady) DeleteAsync(label, 2000);
+        if (allPlayersReady) 
+        { 
+            DeleteAsync(label, 2000);
+            MyGame.countdown.StartCountdown();
+        }
     }
 
     public async void DeleteAsync(Panel panel, int timer)
