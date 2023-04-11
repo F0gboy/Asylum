@@ -1,4 +1,5 @@
 ﻿using Sandbox;
+using System.Runtime.InteropServices;
 
 [Spawnable]
 [Library( "weapon_flashlight", Title = "Flashlight" )]
@@ -24,7 +25,7 @@ partial class Flashlight : BaseWeapon
 		SetModel( "weapons/rust_pistol/rust_pistol.vmdl" );
 
 		worldLight = CreateLight();
-		worldLight.SetParent( this, "slide", new Transform( this.Rotation.Forward * (-10) ) );
+		worldLight.SetParent( this, "slide", new Transform( this.Rotation.Forward * (-20) ) );
 		worldLight.EnableHideInFirstPerson = true;
 		worldLight.Enabled = false;
 	}
@@ -34,13 +35,14 @@ partial class Flashlight : BaseWeapon
 		base.CreateViewModel();
 
 		viewLight = CreateLight();
-		viewLight.SetParent( ViewModelEntity, "light", new Transform( ViewModelEntity.Rotation.Forward * (-10) ) );
+		viewLight.SetParent( ViewModelEntity, "light", new Transform( viewLight.Rotation.Forward * (-20) ) );
 		viewLight.EnableViewmodelRendering = true;
 		viewLight.Enabled = LightEnabled;
 	}
 
 	private SpotLightEntity CreateLight()
 	{
+
 		var light = new SpotLightEntity
 		{
 			Enabled = true,
