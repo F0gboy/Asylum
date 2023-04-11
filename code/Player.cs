@@ -16,6 +16,8 @@ namespace Sandbox
 
 		private Entity markedObject = null;
 
+		string[] tags = { "Interact", "Hit" };
+
 		string interactTag = "Interact";
 
 		/// <summary>
@@ -94,7 +96,7 @@ namespace Sandbox
 			base.Simulate( cl );
 
 			var trace = Trace.Ray( EyePosition, EyePosition + EyeRotation.Forward * 85 )
-				.WithTag(interactTag)
+				.WithAnyTags( tags )
 				.Ignore( this )
 				.Run();
 
@@ -103,13 +105,16 @@ namespace Sandbox
 			//	DebugOverlay.TraceResult( trace );
 			
 
-			if ( trace.Hit && trace.Entity is Entity ent && !markedObject.IsValid() )
+			if ( trace.Hit && trace.Entity is Entity ent && !markedObject.IsValid() && ent.Tags.Has( interactTag ) )
 			{
 				markedObject = ent;
 
 				var glow = ent.Components.GetOrCreate<Glow>();
-				glow.Color = Color.White;
-				glow.Width = 0.5f;
+
+				if ( ent is DoorEntity door ) glow.Color = door.Locked ? Color.Red : Color.Gray;
+				else glow.Color = Color.Gray;
+
+				glow.Width = 0.25f;
 				glow.Enabled = true;
 			}
 
