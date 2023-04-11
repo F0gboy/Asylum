@@ -1,0 +1,102 @@
+@inherits Sandbox.UI.RootPanel
+@using Sandbox.UI
+
+<style>
+    Paper1 {
+       
+    }
+
+    .papercss {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 500px;
+        height: 700px;
+        margin-top: -350px;
+        margin-left: -250px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        z-index: 1;
+        pointer-events: all;
+    }
+    .paperet {
+        background-image: url(textures/Patient1.png);
+    }
+
+    .paperto {
+        background-image: url(textures/Patient2.png);
+    }
+
+    .papertre {
+        background-image: url(textures/Patient3.png);
+    }
+
+    .paperfire {
+        background-image: url(textures/Patient4.png);
+    }
+
+    .paperfem {
+        background-image: url(textures/Patient5.png);
+    }
+
+    .paperseks {
+        background-image: url(textures/Patient6.png);
+    }
+    .custom-button {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        background-color: red;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        font-size: 16px;
+        margin: 4px auto;
+        cursor: pointer;
+        border-radius: 5px;
+        font-weight: bold;
+        z-index: 2;
+    }
+
+    .hidden-paper { 
+        display: none;
+        pointer-events: none !important;
+    }
+</style>
+<root>
+    <div class="papercss paperet  @(IsOpen ? "" : "hidden-paper")">
+        <button class="custom-button" @onclick="@Close">Close</button>
+    </div>
+
+    <div class="papercss paperto  @(IsOpen ? "" : "hidden-paper")">
+        <button class="custom-button" @onclick="@Close">Close</button>
+    </div>
+
+    <div class="papercss papertre  @(IsOpen ? "" : "hidden-paper")">
+        <button class="custom-button" @onclick="@Close">Close</button>
+    </div>
+
+    <div class="papercss paperfire  @(IsOpen ? "" : "hidden-paper")">
+        <button class="custom-button" @onclick="@Close">Close</button>
+    </div>
+
+    <div class="papercss paperfem  @(IsOpen ? "" : "hidden-paper")">
+        <button class="custom-button" @onclick="@Close">Close</button>
+    </div>
+
+    <div class="papercss paperseks  @(IsOpen ? "" : "hidden-paper")">
+        <button class="custom-button" @onclick="@Close">Close</button>
+    </div>
+</root>
+@code { 
+    private bool IsOpen { get; set; } = true;
+
+    private void Close()
+    {
+        IsOpen = false;
+    }
+    
+
+}
