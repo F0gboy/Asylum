@@ -58,14 +58,7 @@
         border-radius: 5px;
         font-weight: bold;
         z-index: 2;
-        transition: all 0.3s ease;
     }
-
-        .custom-button:hover {
-            background-color: #ff4d4d;
-            box-shadow: 0 0 10px #ff4d4d;
-            transform: translateY(-3px);
-        }
 
     .hidden-paper { 
         display: none;
@@ -73,37 +66,40 @@
     }
 </style>
 <root>
-    <div class="papercss paperet  @(IsOpen ? "" : "hidden-paper")">
-        <button class="custom-button" @onclick="@Close">Close</button>
+    <div class="papercss paperet  @(IsOpen[0] ? "" : "hidden-paper")">
+        <button class="custom-button" @onclick="@(() => Close(1))">Close</button>
     </div>
 
-    <div class="papercss paperto  @(IsOpen ? "" : "hidden-paper")">
-        <button class="custom-button" @onclick="@Close">Close</button>
+    <div class="papercss paperto  @(IsOpen[1] ? "" : "hidden-paper")">
+        <button class="custom-button" @onclick="@(() => Close(2))">Close</button>
     </div>
 
-    <div class="papercss papertre  @(IsOpen ? "" : "hidden-paper")">
-        <button class="custom-button" @onclick="@Close">Close</button>
+    <div class="papercss papertre  @(IsOpen[2] ? "" : "hidden-paper")">
+        <button class="custom-button" @onclick="@(() => Close(3))">Close</button>
     </div>
 
-    <div class="papercss paperfire  @(IsOpen ? "" : "hidden-paper")">
-        <button class="custom-button" @onclick="@Close">Close</button>
+    <div class="papercss paperfire  @(IsOpen[3] ? "" : "hidden-paper")">
+        <button class="custom-button" @onclick="@(() => Close(4))">Close</button>
     </div>
 
-    <div class="papercss paperfem  @(IsOpen ? "" : "hidden-paper")">
-        <button class="custom-button" @onclick="@Close">Close</button>
+    <div class="papercss paperfem  @(IsOpen[4] ? "" : "hidden-paper")">
+        <button class="custom-button" @onclick="@(() => Close(5))">Close</button>
     </div>
 
-    <div class="papercss paperseks  @(IsOpen ? "" : "hidden-paper")">
-        <button class="custom-button" @onclick="@Close">Close</button>
+    <div class="papercss paperseks  @(IsOpen[5] ? "" : "hidden-paper")">
+        <button class="custom-button" @onclick="@(() => Close(6))">Close</button>
     </div>
 </root>
 @code {
-    private bool IsOpen { get; set; } = true;
+    private bool[] IsOpen = { false, false, false, false, false, false };
 
-    private void Close()
+    private void Close(int close)
     {
-        
+        IsOpen[close - 1] = false;
     }
-    
-    
+
+    public void Open(int open)
+    {
+        IsOpen[open - 1] = true;
+    }
 }

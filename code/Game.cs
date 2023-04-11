@@ -16,6 +16,8 @@ partial class MyGame : GameManager
 
 	public static List<Key> keysCollected { get; private set; } = new ();
 
+	public static Paper papers { get; private set; }
+
 	public MyGame()
 	{
 		if ( Game.IsServer )
@@ -26,9 +28,8 @@ partial class MyGame : GameManager
 
 		if ( Game.IsClient )
 		{
-			_ = new Paper();
+			papers = new Paper();
 			_ = new Countdown();
-			
 
 			_ = new PlayersReady();
 			
