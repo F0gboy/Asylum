@@ -59,7 +59,10 @@
         font-weight: bold;
         z-index: 2;
     }
-
+    .show-paper { 
+        display: block;
+        pointer-events: all !important;
+    }
     .hidden-paper { 
         display: none;
         pointer-events: none !important;
@@ -91,15 +94,33 @@
     </div>
 </root>
 @code {
-    private bool[] IsOpen = { false, false, false, false, false, false };
+    private bool[] IsOpen = new bool[6];
+
+    public Paper()
+    {
+        for (int i = 0; i < IsOpen.Length; i++)
+        {
+            IsOpen[i] = false;
+        }
+    }
+
+    private bool isAnyOpen = false;
 
     private void Close(int close)
     {
         IsOpen[close - 1] = false;
+        isAnyOpen = false;
     }
 
     public void Open(int open)
     {
+        Log.Info(open);
         IsOpen[open - 1] = true;
+        isAnyOpen = true;
+    }
+
+    public bool AnyOpen()
+    {
+        return isAnyOpen;
     }
 }
