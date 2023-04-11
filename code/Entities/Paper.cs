@@ -13,14 +13,21 @@ namespace Sandbox.Entities
 	[Title( "Clock" ), Category( "Lobby" ), Icon( "radio_button_checked" )]
 	internal class Paper : KeyframeEntity, IUse
 	{
+		[Property( Title = "Activation distance" ), Category( "Settings" )]
+		public int activationDist { get; set; } = 100;
+
 		public bool IsUsable( Entity user )
 		{
-			throw new NotImplementedException();
+			return user is Player && activationDist > Vector3.DistanceBetween( user.Position, Position );
 		}
 
 		public bool OnUse( Entity user )
 		{
-			throw new NotImplementedException();
+			var num = Convert.ToInt32( Name );
+
+
+
+			return false;
 		}
 	}
 }

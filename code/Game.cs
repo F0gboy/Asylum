@@ -28,7 +28,6 @@ partial class MyGame : GameManager
 		{
 			_ = new Paper1();
 			_ = new Countdown();
-			
 
 			_ = new PlayersReady();
 			

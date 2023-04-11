@@ -16,7 +16,7 @@ namespace Sandbox
 
 		private Entity markedObject = null;
 
-		string[] tags = { "Interact", "Hit", "paper1" };
+		string[] tags = { "Interact", "Hit", "paper" };
 
 		string interactTag = "Interact";
 
