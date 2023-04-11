@@ -1,5 +1,5 @@
 ﻿using Sandbox;
-using System.Runtime.InteropServices;
+using System.Numerics;
 
 [Spawnable]
 [Library( "weapon_flashlight", Title = "Flashlight" )]
@@ -12,6 +12,7 @@ partial class Flashlight : BaseWeapon
 
 	private SpotLightEntity worldLight;
 	private SpotLightEntity viewLight;
+	private PointLightEntity illuminatingLight;
 
 	[Net, Local, Predicted]
 	private bool LightEnabled { get; set; } = true;
@@ -25,7 +26,7 @@ partial class Flashlight : BaseWeapon
 		SetModel( "weapons/rust_pistol/rust_pistol.vmdl" );
 
 		worldLight = CreateLight();
-		worldLight.SetParent( this, "slide", new Transform( this.Rotation.Forward * (-20) ) );
+		worldLight.SetParent( this, "slide" );
 		worldLight.EnableHideInFirstPerson = true;
 		worldLight.Enabled = false;
 	}
@@ -35,14 +36,13 @@ partial class Flashlight : BaseWeapon
 		base.CreateViewModel();
 
 		viewLight = CreateLight();
-		viewLight.SetParent( ViewModelEntity, "light", new Transform( viewLight.Rotation.Forward * (-20) ) );
+		viewLight.SetParent( ViewModelEntity, "light", new Transform( ViewModelEntity.Rotation.Forward * (-10) ) );
 		viewLight.EnableViewmodelRendering = true;
 		viewLight.Enabled = LightEnabled;
 	}
 
 	private SpotLightEntity CreateLight()
 	{
-
 		var light = new SpotLightEntity
 		{
 			Enabled = true,
@@ -89,6 +89,43 @@ partial class Flashlight : BaseWeapon
 			}
 
 			timeSinceLightToggled = 0;
+		}
+
+		var localPawn = cl.Pawn as MyPlayer;
+
+		if (!viewLight.IsValid() || localPawn == null) return;
+
+		var trace = Trace.Ray( localPawn.EyePosition, localPawn.EyePosition + localPawn.EyeRotation.Forward * 512 )
+			.Ignore( this )
+			.Run();
+
+		if ( trace.Hit && LightEnabled )
+		{
+			//Log.Info( MyGame.MapRange( trace.Distance, 0, 512, 0.005f, .025f ) );
+
+			if ( illuminatingLight.IsValid() )
+			{
+				illuminatingLight.Position = trace.EndPosition - trace.Direction;
+				illuminatingLight.Brightness = MyGame.MapRange( trace.Distance, 0, 256, 0.005f, .025f );
+				return;
+
+			}
+
+			illuminatingLight = new PointLightEntity()
+			{
+				Position = trace.EndPosition,
+				Range = 256,
+				Color = Color.White,
+				
+				Brightness = MyGame.MapRange( trace.Distance, 0, 256, 0.005f, .025f ),
+				LinearAttenuation = 0.001f,
+				QuadraticAttenuation = 0
+			};
+		}
+
+		else if ( !trace.Hit && LightEnabled && illuminatingLight.IsValid() || !LightEnabled )
+		{
+			illuminatingLight.Delete();
 		}
 	}
 
