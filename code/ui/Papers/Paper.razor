@@ -58,7 +58,14 @@
         border-radius: 5px;
         font-weight: bold;
         z-index: 2;
+        transition: all 0.3s ease;
     }
+
+        .custom-button:hover {
+            background-color: #ff4d4d;
+            box-shadow: 0 0 10px #ff4d4d;
+            transform: translateY(-3px);
+        }
 
     .hidden-paper { 
         display: none;
@@ -90,13 +97,13 @@
         <button class="custom-button" @onclick="@Close">Close</button>
     </div>
 </root>
-@code { 
+@code {
     private bool IsOpen { get; set; } = true;
 
     private void Close()
     {
-        IsOpen = false;
+        
     }
     
-
+    
 }
