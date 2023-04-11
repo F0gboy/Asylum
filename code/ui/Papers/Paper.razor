@@ -91,15 +91,17 @@
     </div>
 </root>
 @code {
-    private bool[] IsOpen = { false, false, false, false, false, false };
+    private bool[] IsOpen = { true, false, false, false, false, false };
 
     private void Close(int close)
     {
         IsOpen[close - 1] = false;
+        StateHasChanged();
     }
 
     public void Open(int open)
     {
         IsOpen[open - 1] = true;
+        StateHasChanged();
     }
 }
