@@ -26,7 +26,7 @@ partial class MyGame : GameManager
 
 		if ( Game.IsClient )
 		{
-			_ = new Paper1();
+			_ = new Paper();
 			_ = new Countdown();
 			
 
