@@ -1,0 +1,61 @@
+@inherits Sandbox.UI.RootPanel
+@using Sandbox.UI
+
+<style>
+    Paper1 {
+        pointer-events: all;
+    }
+
+
+    .papercss {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 500px; /* updated width */
+        height: 700px; /* updated height */
+        margin-top: -350px; /* half of height */
+        margin-left: -250px; /* half of width */
+        background-image: url(textures/Patient1.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        
+    }
+
+       
+
+    .custom-button {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        background-color: red;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        font-size: 16px;
+        margin: 4px auto;
+        cursor: pointer;
+        border-radius: 5px;
+        font-weight: bold;
+        z-index: 10;
+   }
+
+   
+</style>
+
+<root>
+    <div class="papercss">
+
+        <button class="custom-button" @onclick=@( () => Log.Error( "test" ))>Close</button>
+        
+    </div>
+
+    
+</root>
+@code{ 
+    public void HandleButtonClick()
+    {
+        Log.Info("test");
+    }
+}

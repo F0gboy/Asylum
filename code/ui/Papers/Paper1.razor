@@ -3,26 +3,24 @@
 
 <style>
     Paper1 {
-        pointer-events: all;
+       
     }
-
 
     .papercss {
         position: absolute;
         top: 50%;
         left: 50%;
-        width: 500px; /* updated width */
-        height: 700px; /* updated height */
-        margin-top: -350px; /* half of height */
-        margin-left: -250px; /* half of width */
+        width: 500px;
+        height: 700px;
+        margin-top: -350px;
+        margin-left: -250px;
         background-image: url(textures/Patient1.png);
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
-        
+        z-index: 1;
+        pointer-events: all;
     }
-
-       
 
     .custom-button {
         position: absolute;
@@ -38,24 +36,26 @@
         cursor: pointer;
         border-radius: 5px;
         font-weight: bold;
-        z-index: 10;
-   }
-
-   
-</style>
-
-<root>
-    <div class="papercss">
-
-        <button class="custom-button" @onclick=@( () => Log.Error( "test" ))>Close</button>
-        
-    </div>
-
-    
-</root>
-@code{ 
-    public void HandleButtonClick()
-    {
-        Log.Info("test");
+        z-index: 2;
     }
+
+    .hidden-paper { 
+        display: none;
+        pointer-events: none !important;
+    }
+</style>
+<root>
+    <div class="papercss  @(IsOpen ? "" : "hidden-paper")">
+        <button class="custom-button" @onclick="@Close">Close</button>
+    </div>
+</root>
+@code { 
+    private bool IsOpen { get; set; } = true;
+
+    private void Close()
+    {
+        IsOpen = false;
+    }
+    
+
 }
