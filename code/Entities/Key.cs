@@ -11,7 +11,7 @@ namespace Sandbox.Entities
 	[RenderFields, VisGroup( VisGroup.Dynamic )]
 	[Model( Archetypes = ModelArchetype.physics_prop_model )]
 	[Title( "Basement key" ), Category( "Lock & Key" ), Icon( "door_front" )]
-	public partial class Key : Prop, IUse
+	public partial class Key : Entity, IUse
 	{
 		[Property( Title = "Activation distance" ), Category( "Settings" )]
 		public int activationDist { get; private set; } = 100;
@@ -22,8 +22,7 @@ namespace Sandbox.Entities
 		public override void Spawn()
 		{
 			base.Spawn();
-
-			SetupPhysicsFromModel( PhysicsMotionType.Dynamic );
+			
 		}
 
 		public bool IsUsable( Entity user )
