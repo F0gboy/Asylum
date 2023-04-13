@@ -17,6 +17,7 @@ partial class MyGame : GameManager
 	public static List<Key> keysCollected { get; private set; } = new ();
 
 	public static Paper papers { get; private set; }
+	public static Countdown countdown { get; private set; }
 
 	public MyGame()
 	{
@@ -29,8 +30,7 @@ partial class MyGame : GameManager
 		if ( Game.IsClient )
 		{
 			papers = new Paper();
-			Log.Info( papers.ElementName );
-			_ = new Countdown();
+			countdown = new Countdown();
 
 			_ = new PlayersReady();
 			
