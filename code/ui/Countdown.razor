@@ -23,13 +23,15 @@
         justify-content: center;
         align-items: center;
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+      
+    }
+    .animate {
         animation-name: pulse;
         animation-duration: 1s;
         animation-timing-function: ease-in-out;
         animation-iteration-count: infinite;
         animation-direction: alternate;
     }
-    
     @@keyframes pulse {
         0% {
             transform: scale(1);
@@ -44,25 +46,40 @@
         
 </style>
 <root> 
-    <div class="box">
-        <p>@countdownTime</p>
-    </div>
+    @if (isTrue)
+    {
+        <div class="box animate"><p>@countdownTime</p></div>
+    }
+    else
+    {
+        <div class="box"><p>@countdownTime</p></div>
+    }
+    
 </root>
 
 @code{
     private float countdownTime = 30;
     private int interval = 15; //Seconds
+    private bool isTrue = false;
 
     public async void StartCountdown()
     {
+
+        isTrue = true;
+        StateHasChanged();
+        await GameTask.Delay(500);
+
         while (countdownTime > 0)
         {
-            await GameTask.Delay(1000);
+
             countdownTime--;
 
             if (countdownTime % interval == 0) PlaySound("bell_sound");
 
             StateHasChanged();
-		}
+            await GameTask.Delay(1000);
+        }
+        isTrue = false;
+        StateHasChanged();
     }
 }
