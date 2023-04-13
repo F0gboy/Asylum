@@ -7,7 +7,7 @@
     }
 
     .papercss {
-        position: absolute;
+        position: relative;
         top: 50%;
         left: 50%;
         width: 500px;
@@ -19,7 +19,16 @@
         background-size: cover;
         z-index: 1;
         pointer-events: all;
+        transition: transform 0.3s ease;
+        
     }
+    
+
+        .papercss:hover {
+            transform: scale(1.5);
+            z-index: 3;
+        }
+
     .paperet {
         background-image: url(textures/Patient1.png);
     }
@@ -58,10 +67,19 @@
         border-radius: 5px;
         font-weight: bold;
         z-index: 2;
+        transition: all 0.3s ease;
     }
+
+        .custom-button:hover {
+            background-color: #ff4d4d;
+            box-shadow: 0 0 10px #ff4d4d;
+            transform: translateY(-3px);
+        }
+
     .show-paper { 
         display: block;
         pointer-events: all !important;
+
     }
     .hidden-paper { 
         display: none;
@@ -110,13 +128,14 @@
     {
         IsOpen[close - 1] = false;
         isAnyOpen = false;
+        StateHasChanged();
     }
 
     public void Open(int open)
     {
-        Log.Info(open);
         IsOpen[open - 1] = true;
         isAnyOpen = true;
+        StateHasChanged();
     }
 
     public bool AnyOpen()
