@@ -1,4 +1,5 @@
-﻿using Editor;
+﻿using System.Reflection.Metadata;
+using Editor;
 
 namespace Sandbox.Entities
 {
@@ -68,7 +69,9 @@ namespace Sandbox.Entities
 			var move = KeyframeTo( targetTrans, time );
 			foreach ( var child in Children )
 			{
-				var keyFrameChild = (KeyframeEntity) child;
+				Log.Info( child.Name );
+				if (child is not KeyframeEntity keyFrameChild) continue;
+
 				var posOffset = new Transform( keyFrameChild.Position - Position );
 				var toPos = new Transform( targetTrans.Position + posOffset.Position );
 				_ = keyFrameChild.KeyframeTo( toPos, time );
