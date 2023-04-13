@@ -67,15 +67,15 @@ namespace Sandbox.Entities
 			targetTrans = open ? endTrans : startTrans;
 
 			var move = KeyframeTo( targetTrans, time );
-			foreach ( var child in Children )
-			{
-				Log.Info( child.Name );
-				if (child is not KeyframeEntity keyFrameChild) continue;
+			//foreach ( var child in Children )
+			//{
+			//	Log.Info( child.Name );
+			//	if (child is not KeyframeEntity keyFrameChild) continue;
 
-				var posOffset = new Transform( keyFrameChild.Position - Position );
-				var toPos = new Transform( targetTrans.Position + posOffset.Position );
-				_ = keyFrameChild.KeyframeTo( toPos, time );
-			}
+			//	var posOffset = new Transform( keyFrameChild.Position - Position );
+			//	var toPos = new Transform( targetTrans.Position + posOffset.Position );
+			//	_ = keyFrameChild.KeyframeTo( toPos, time );
+			//}
 
 			move.ContinueWith( task =>
 			{

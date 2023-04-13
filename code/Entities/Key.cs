@@ -23,7 +23,7 @@ namespace Sandbox.Entities
 		{
 			base.Spawn();
 
-			SetupPhysicsFromModel( PhysicsMotionType.Dynamic );
+			SetupPhysicsFromModel( PhysicsMotionType.Static );
 		}
 
 		public bool IsUsable( Entity user )
