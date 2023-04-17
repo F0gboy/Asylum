@@ -30,8 +30,9 @@ partial class MyGame : GameManager
 		if ( Game.IsClient )
 		{
 			papers = new Paper();
+			_ = new Notifications();
 			countdown = new Countdown();
-
+			
 			_ = new PlayersReady();
 			
 			var text = $"Players ready: {GetPlayersReady()}/{Game.Clients.Count}";
