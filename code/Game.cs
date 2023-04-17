@@ -29,7 +29,7 @@ partial class MyGame : GameManager
 		if ( Game.IsClient )
 		{
 			papers = new Paper();
-			_ = new Notifications();
+			_ = new Notifications( "You picked up a key.");
 			countdown = new Countdown();
 			
 			_ = new PlayersReady();

@@ -1,4 +1,6 @@
 @inherits Sandbox.UI.RootPanel
+@using Sandbox
+@using System
 @using Sandbox.UI
 
 <style>
@@ -12,7 +14,7 @@
         font-family: 'Helvetica Neue', sans-serif;
         position: absolute;
         bottom: 20px;
-        right: 20px;
+        right: 0px !important;
         transform: translate(-50%, -50%);
         display: flex;
         flex-direction: column;
@@ -33,7 +35,10 @@
 
     .notification-body {
         font-size: 16px;
-        line-height: 1.5;
+        line-height: 2;
+        word-wrap: break-word;
+        word-break: break-all;
+        padding-bottom: 10px;
     }
 
     .creepy {
@@ -50,15 +55,24 @@
             <h2>Notification</h2>
         </div>
         <div class="notification-body">
-            <div style="display: flex;">
-                <div style="flex: 1;"></div>
-                <p style="flex: 3;">@Content</p>
-                <div style="flex: 1;"></div>
-            </div>
+            <p>@Content</p>
         </div>
     </div>
 </root>
 
 @code {
-    string Content = "You picked up a key.";
+    string Content;
+
+    public Notifications(string text)
+    {
+        Content = text;
+        Despawn(this);
+        StateHasChanged();
+    }
+
+    private async void Despawn(Notifications noti)
+    {
+        await GameTask.Delay(5000);
+        noti.Delete();
+    }
 }
