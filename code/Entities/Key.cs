@@ -11,7 +11,7 @@ namespace Sandbox.Entities
 	[RenderFields, VisGroup( VisGroup.Dynamic )]
 	[Model( Archetypes = ModelArchetype.physics_prop_model )]
 	[Title( "Basement key" ), Category( "Lock & Key" ), Icon( "door_front" )]
-	public partial class Key : KeyframeEntity, IUse
+	public partial class Key : ModelEntity, IUse
 	{
 		[Property( Title = "Activation distance" ), Category( "Settings" )]
 		public int activationDist { get; private set; } = 100;

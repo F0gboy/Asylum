@@ -14,8 +14,7 @@ partial class MyGame : GameManager
 	private bool gameStarted = false;
 	private static bool allPlayersReady = false;
 
-	public static List<Key> keysCollected { get; private set; } = new ();
-
+	public static List<Key> keysCollected { get; private set; } = new();
 	public static Paper papers { get; private set; }
 	public static Countdown countdown { get; private set; }
 

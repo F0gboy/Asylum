@@ -1,10 +1,5 @@
-﻿using Editor;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection.Metadata;
+using Editor;
 
 namespace Sandbox.Entities
 {
@@ -72,6 +67,15 @@ namespace Sandbox.Entities
 			targetTrans = open ? endTrans : startTrans;
 
 			var move = KeyframeTo( targetTrans, time );
+			//foreach ( var child in Children )
+			//{
+			//	Log.Info( child.Name );
+			//	if (child is not KeyframeEntity keyFrameChild) continue;
+
+			//	var posOffset = new Transform( keyFrameChild.Position - Position );
+			//	var toPos = new Transform( targetTrans.Position + posOffset.Position );
+			//	_ = keyFrameChild.KeyframeTo( toPos, time );
+			//}
 
 			move.ContinueWith( task =>
 			{
