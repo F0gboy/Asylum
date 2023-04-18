@@ -1,0 +1,78 @@
+@inherits Sandbox.UI.RootPanel
+@using Sandbox
+@using System
+@using Sandbox.UI
+
+<style>
+    .notification-box {
+        background-color: #222;
+        color: #fff;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 10px;
+        box-shadow: 0px 2px 5px rgba(0,0,0,0.5);
+        font-family: 'Helvetica Neue', sans-serif;
+        position: absolute;
+        bottom: 20px;
+        right: 0px !important;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        max-width: 400px;
+    }
+
+    .notification-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+        .notification-header h2 {
+            margin: auto;
+            font-size: 24px;
+        }
+
+    .notification-body {
+        font-size: 16px;
+        line-height: 2;
+        word-wrap: break-word;
+        word-break: break-all;
+        padding-bottom: 10px;
+    }
+
+    .creepy {
+        background-color: #333;
+        box-shadow: 0px 2px 5px rgba(255, 0, 0, 0.5);
+        color: #fff;
+        text-shadow: 0px 0px 5px rgba(255, 0, 0, 0.5);
+    }
+</style>
+
+<root>
+    <div class="notification-box creepy">
+        <div class="notification-header">
+            <h2>Notification</h2>
+        </div>
+        <div class="notification-body">
+            <p>@Content</p>
+        </div>
+    </div>
+</root>
+
+@code {
+    string Content;
+
+    public Notifications(string text)
+    {
+        Content = text;
+        Despawn(this);
+        StateHasChanged();
+    }
+
+    private async void Despawn(Notifications noti)
+    {
+        await GameTask.Delay(5000);
+        noti.Delete();
+    }
+}
