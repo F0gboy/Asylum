@@ -1,0 +1,49 @@
+@using Sandbox
+@inherits Sandbox.UI.WorldPanel
+@using System
+@using Sandbox.UI
+
+
+@code
+{
+    int[] code = { 1, 2, 3, 4 };
+
+    int[] input = { 0, 0, 0, 0 };
+
+    private void UpValue(int index)
+    {
+        if (input[index] < 9)
+        {
+            input[index]++;
+        }
+        else
+        {
+            input[index] = 0;
+        }
+
+        if (input == code) CorrectCode();
+
+        StateHasChanged();
+    }
+
+    private void DownValue(int index)
+    {
+        if (input[index] > 0)
+        {
+            input[index]--;
+        }
+        else
+        {
+            input[index] = 9;
+        }
+
+        if (input == code) CorrectCode();
+
+        StateHasChanged();
+    }
+
+    private void CorrectCode()
+    {
+        Log.Warning( "Rigtig kode" );
+    }
+}
