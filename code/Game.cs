@@ -15,7 +15,7 @@ partial class MyGame : GameManager
 	private static bool allPlayersReady = false;
 
 	public static List<Key> keysCollected { get; private set; } = new();
-	public static Paper papers { get; private set; }
+	public static PaperManager papers { get; private set; }
 	public static Countdown countdown { get; private set; }
 
 	public MyGame()
@@ -28,7 +28,7 @@ partial class MyGame : GameManager
 
 		if ( Game.IsClient )
 		{
-			papers = new Paper();
+			_ = new Interactebels();
 			_ = new Notifications( "You picked up a key.");
 			countdown = new Countdown();
 			
@@ -37,6 +37,12 @@ partial class MyGame : GameManager
 			var text = $"Players ready: {GetPlayersReady()}/{Game.Clients.Count}";
 			UpdatePlayerReadyText( To.Single( Game.LocalPawn as MyPlayer), text, true, allPlayersReady);
 		}
+	}
+
+	public static void SetPapers(PaperManager paperManager)
+	{
+		if ( papers.IsValid() ) return;
+		papers = paperManager;
 	}
 
 	public static void AddPlayerReady( Sandbox.Entity client )

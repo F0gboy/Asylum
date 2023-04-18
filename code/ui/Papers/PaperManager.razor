@@ -1,33 +1,39 @@
-@inherits Sandbox.UI.RootPanel
+@inherits Sandbox.UI.Panel
 @using Sandbox.UI
 
 <style>
-    Paper1 {
-       
-    }
-
-    .papercss {
-        position: relative;
+    PaperManager {
+        position: absolute;
         top: 50%;
         left: 50%;
+        margin-top: -350px; /* half of the height */
+        margin-left: -250px; /* half of the width */
+    }
+
+
+    .papercss {
         width: 500px;
         height: 700px;
-        margin-top: -350px;
-        margin-left: -250px;
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
         z-index: 1;
         pointer-events: all;
         transition: transform 0.3s ease;
-        
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
     }
-    
+
 
         .papercss:hover {
             transform: scale(1.5);
-            z-index: 3;
+            transition: transform 0.3s ease;
         }
+
 
     .paperet {
         background-image: url(textures/Patient1.png);
@@ -114,12 +120,14 @@
 @code {
     private bool[] IsOpen = new bool[6];
 
-    public Paper()
+    public PaperManager()
     {
         for (int i = 0; i < IsOpen.Length; i++)
         {
             IsOpen[i] = false;
         }
+
+        MyGame.SetPapers(this);
     }
 
     private bool isAnyOpen = false;
