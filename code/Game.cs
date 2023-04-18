@@ -14,6 +14,7 @@ partial class MyGame : GameManager
 	private bool gameStarted = false;
 	private static bool allPlayersReady = false;
 
+	private static List<Entity> papersCollected = new();
 	public static List<Key> keysCollected { get; private set; } = new();
 	public static Paper papers { get; private set; }
 	public static Countdown countdown { get; private set; }
@@ -29,7 +30,6 @@ partial class MyGame : GameManager
 		if ( Game.IsClient )
 		{
 			papers = new Paper();
-			_ = new Notifications( "You picked up a key.");
 			countdown = new Countdown();
 			
 			_ = new PlayersReady();
@@ -37,6 +37,30 @@ partial class MyGame : GameManager
 			var text = $"Players ready: {GetPlayersReady()}/{Game.Clients.Count}";
 			UpdatePlayerReadyText( To.Single( Game.LocalPawn as MyPlayer), text, true, allPlayersReady);
 		}
+	}
+
+	public static List<Entity> GetPapersCollected(  )
+	{
+		return papersCollected;
+	}
+
+	public static void AddPaperCollected( Entity paper )
+	{
+		if ( papersCollected.Contains( paper ) ) return;
+
+		papersCollected.Add( paper );
+
+		foreach ( var client in Game.Clients )
+		{
+			CreateNotification( To.Single( (client.Pawn as MyPlayer)),
+				$"New paper collected: {papersCollected.Count}/6" );
+		}
+	}
+
+	[ClientRpc]
+	public static void CreateNotification( string text )
+	{
+		_ = new Notifications( text );
 	}
 
 	public static void AddPlayerReady( Sandbox.Entity client )

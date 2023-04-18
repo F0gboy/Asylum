@@ -53,7 +53,6 @@ public partial class ClockEntity : KeyframeEntity, IUse
 	{
 		base.Spawn();
 		
-		//Brug måske SetAnimParameter(Name, Value)
 		SetupPhysicsFromModel( PhysicsMotionType.Static );
 	}
 }
