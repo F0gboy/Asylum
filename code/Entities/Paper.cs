@@ -26,6 +26,10 @@ namespace Sandbox.Entities
 		{
 			OpenPaperClient( To.Single(user.Client.Pawn as MyPlayer), this );
 
+			MyGame.AddPaperCollected( this );
+
+
+
 			return false;
 		}
 
