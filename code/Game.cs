@@ -62,6 +62,8 @@ partial class MyGame : GameManager
 	public static void CreateNotification( string text )
 	{
 		_ = new Notifications( text );
+	}
+
 	public static void SetPapers(PaperManager paperManager)
 	{
 		if ( papers.IsValid() ) return;
