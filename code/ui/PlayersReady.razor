@@ -26,11 +26,43 @@
 
 <root>
     <div class="box">
-        <p>Players Ready</p>
+        <p>
+            @text
+        </p>
     </div>
 </root>
 
 
 @code {
-    
+    private string text = $"Players ready: {MyGame.GetPlayersReady()}/{Game.Clients.Count}";
+
+    [Event("UpdateReady")]
+    public void UpdateUi(int playersReady, int playersIngame)
+    {
+        text = $"Players ready: {playersReady}/{playersIngame}";
+        StateHasChanged();
+
+        if (playersReady != playersIngame) return;
+
+        DeleteAsync(2000);
+    }
+
+    public async void DeleteAsync(int timer)
+    {
+        var addText = string.Empty;
+
+        var loopTimes = 8;
+
+        for (int i = 1; i <= loopTimes; i++)
+        {
+            text = "Doors opening" + addText;
+            StateHasChanged();
+            await GameTask.Delay(timer / loopTimes);
+
+            if (i % 4 == 0) addText = string.Empty;
+            else addText += ".";
+        }
+
+        Delete();
+    }
 }
