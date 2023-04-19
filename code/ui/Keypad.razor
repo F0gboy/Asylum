@@ -68,6 +68,10 @@
         margin-top: 120px; /* height of the box plus some extra */
     }
 
+    .show-paper {
+        pointer-events: all !important;
+    }
+
     .button {
         position: absolute;
         bottom: 0;
@@ -89,39 +93,52 @@
 </style>
 
 <root>
-    <div class="container">
+    <div class="container show-paper">
         <div class="box">
-            <div class="arrow arrow-up">&#x25B2;</div>
-            <div class="value">0</div>
-            <div class="arrow arrow-down">&#x25BC;</div>
+            <div class="arrow arrow-up" @onclick="@(() => UpValue(0))">&#x25B2;</div>
+            <div class="value">@input[0]</div>
+            <div class="arrow arrow-down" @onclick="@(() => DownValue(0))">&#x25BC;</div>
         </div>
         <div class="box">
-            <div class="arrow arrow-up">&#x25B2;</div>
-            <div class="value">0</div>
-            <div class="arrow arrow-down">&#x25BC;</div>
+            <div class="arrow arrow-up" @onclick="@(() => UpValue(1))">&#x25B2;</div>
+            <div class="value">@input[1]</div>
+            <div class="arrow arrow-down" @onclick="@(() => DownValue(1))">&#x25BC;</div>
         </div>
         <div class="box">
-            <div class="arrow arrow-up">&#x25B2;</div>
-            <div class="value">0</div>
-            <div class="arrow arrow-down">&#x25BC;</div>
+            <div class="arrow arrow-up" @onclick="@(() => UpValue(2))">&#x25B2;</div>
+            <div class="value">@input[2]</div>
+            <div class="arrow arrow-down" @onclick="@(() => DownValue(2))">&#x25BC;</div>
         </div>
         <div class="box">
-            <div class="arrow arrow-up">&#x25B2;</div>
-            <div class="value">0</div>
-            <div class="arrow arrow-down">&#x25BC;</div>
+            <div class="arrow arrow-up" @onclick="@(() => UpValue(3))">&#x25B2;</div>
+            <div class="value">@input[3]</div>
+            <div class="arrow arrow-down" @onclick="@(() => DownValue(3))">&#x25BC;</div>
         </div>
-        <button class="button">Confirm</button>
+        <button class="button" @onclick="@(() => Confirm())">Confirm</button>
     </div>
 </root>
 
 
-
-
 @code
 {
-    int[] code = { 1, 2, 3, 4 };
+    private int[] code = { 1, 2, 3, 4 };
 
-    int[] input = { 0, 0, 0, 0 };
+    private int[] input = { 0, 0, 0, 0 };
+
+    private bool visible;
+
+
+
+    public Keypad()
+    {
+        MyGame.SetKeypad(this);
+    }
+
+    public void ToggleKeypad()
+    {
+        visible = !visible;
+        StateHasChanged();
+    }
 
     private void UpValue(int index)
     {
@@ -133,8 +150,6 @@
         {
             input[index] = 0;
         }
-
-        if (input == code) CorrectCode();
 
         StateHasChanged();
     }
@@ -150,13 +165,29 @@
             input[index] = 9;
         }
 
-        if (input == code) CorrectCode();
-
         StateHasChanged();
+    }
+
+    private void Confirm()
+    {
+        if (input == code)
+        {
+            CorrectCode();
+        }
+    }
+
+    public bool IsCodeCorrect()
+    {
+        if (input == code) return true;
+        return false;
     }
 
     private void CorrectCode()
     {
+        ToggleKeypad();
+
+        MyGame.OpenOfficeDoor();
+
         Log.Warning("Correct code entered.");
     }
 }

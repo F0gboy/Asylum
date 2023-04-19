@@ -1,4 +1,5 @@
 ﻿using Sandbox;
+using System.Collections.Generic;
 using System.Numerics;
 
 [Spawnable]
@@ -12,7 +13,7 @@ partial class Flashlight : BaseWeapon
 
 	private SpotLightEntity worldLight;
 	private SpotLightEntity viewLight;
-	private PointLightEntity illuminatingLight;
+	private List<PointLightEntity> illuminatingLight = new();
 
 	[Net, Local, Predicted]
 	private bool LightEnabled { get; set; } = true;
@@ -25,8 +26,6 @@ partial class Flashlight : BaseWeapon
 
 		SetModel( "weapons/rust_pistol/rust_pistol.vmdl" );
 
-		Log.Info( "HUH igen" );
-
 		worldLight = CreateLight();
 		worldLight.SetParent( this, "slide", new Transform( worldLight.Rotation.Forward * 5 ) );
 		worldLight.EnableHideInFirstPerson = true;
@@ -37,10 +36,11 @@ partial class Flashlight : BaseWeapon
 	{
 		base.CreateViewModel();
 
-		Log.Info( "Huh" );
+		var pawn = Game.LocalPawn as MyPlayer;
 
 		viewLight = CreateLight();
 		viewLight.SetParent( ViewModelEntity, "light", new Transform( ViewModelEntity.Rotation.Forward * (-20) ) );
+		//viewLight.SetParent( ViewModelEntity, "light", new Transform( pawn.EyePosition + pawn.EyeRotation.Forward * 10, pawn.EyeRotation ) );
 		viewLight.EnableViewmodelRendering = true;
 		viewLight.Enabled = LightEnabled;
 	}
@@ -95,42 +95,66 @@ partial class Flashlight : BaseWeapon
 			timeSinceLightToggled = 0;
 		}
 
-		var localPawn = cl.Pawn as MyPlayer;
+		//var localPawn = cl.Pawn as MyPlayer;
 
-		if (!viewLight.IsValid() || localPawn == null) return;
+		//if (!viewLight.IsValid() || localPawn == null ) return;
 
-		var trace = Trace.Ray( localPawn.EyePosition, localPawn.EyePosition + localPawn.EyeRotation.Forward * 512 )
-			.Ignore( this )
-			.Run();
+		//var trace = Trace.Ray( localPawn.EyePosition, localPawn.EyePosition + localPawn.EyeRotation.Forward * 512 )
+		//	.Ignore( this )
+		//	.Run();
 
-		if ( trace.Hit && LightEnabled )
-		{
-			//Log.Info( MyGame.MapRange( trace.Distance, 0, 512, 0.005f, .025f ) );
+		//if ( trace.Hit && LightEnabled )
+		//{
+		//	//Log.Info( MyGame.MapRange( trace.Distance, 0, 512, 0.005f, .025f ) );
 
-			if ( illuminatingLight.IsValid() )
-			{
-				illuminatingLight.Position = trace.EndPosition - trace.Direction;
-				illuminatingLight.Brightness = MyGame.MapRange( trace.Distance, 0, 256, 0.005f, .025f );
-				return;
+		//	if ( illuminatingLight.Count > 0 )
+		//	{
+		//		for ( int i = 1; i <= illuminatingLight.Count; i++ )
+		//		{
+		//			illuminatingLight[i - 1].Position = Vector3.Lerp(localPawn.EyePosition, trace.EndPosition, i / 4) - trace.Direction;
+		//			illuminatingLight[i - 1].Brightness = MyGame.MapRange( Vector3.DistanceBetween(localPawn.EyePosition, Vector3.Lerp( localPawn.EyePosition, trace.EndPosition, i / 4 ) ), 0, 256, 0.005f, .025f );
+		//		}
 
-			}
+		//		return;
 
-			illuminatingLight = new PointLightEntity()
-			{
-				Position = trace.EndPosition,
-				Range = 256,
-				Color = Color.White,
-				
-				Brightness = MyGame.MapRange( trace.Distance, 0, 256, 0.005f, .025f ),
-				LinearAttenuation = 0.001f,
-				QuadraticAttenuation = 0
-			};
-		}
+		//	}
 
-		else if ( !trace.Hit && LightEnabled && illuminatingLight.IsValid() || !LightEnabled )
-		{
-			illuminatingLight.Delete();
-		}
+		//	for ( int i = 1; i <= 4; i++)
+		//	{
+		//		Log.Info( "Created light" );
+		//		illuminatingLight.Add( new PointLightEntity()
+		//		{
+		//			Position = Vector3.Lerp( localPawn.EyePosition, trace.EndPosition, i / 4 ),
+		//			Range = 256,
+		//			Color = Color.White,
+
+		//			Brightness = MyGame.MapRange( trace.Distance, 0, 256, 0.005f, .025f ),
+		//			LinearAttenuation = 0.001f,
+		//			QuadraticAttenuation = 0
+		//		} );
+
+		//	}
+
+			
+		//}
+
+		//else if ( !trace.Hit && LightEnabled && illuminatingLight.Count > 0 )
+		//{
+		//	for ( int i = 1; i <= illuminatingLight.Count; i++ )
+		//	{
+		//		illuminatingLight[i - 1].Position = Vector3.Lerp( localPawn.EyePosition, trace.EndPosition, i / 4 ) - trace.Direction;
+		//		illuminatingLight[i - 1].Brightness = MyGame.MapRange( Vector3.DistanceBetween( localPawn.EyePosition, Vector3.Lerp( localPawn.EyePosition, localPawn.EyePosition + localPawn.EyeRotation.Forward * 256, i / 4 ) ), 0, 256, 0.005f, .025f );
+		//	}
+		//}
+
+		//else if ( !LightEnabled && illuminatingLight.Count > 0 )
+		//{
+		//	foreach ( var light in illuminatingLight )
+		//	{
+		//		illuminatingLight.Remove( light );
+		//		light.Delete();
+		//	}
+		//}
 	}
 
 	public override bool CanReload()
