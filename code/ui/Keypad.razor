@@ -68,15 +68,8 @@
         margin-top: 120px; /* height of the box plus some extra */
     }
 
-    .show-paper {
-        pointer-events: all !important;
-    }
 
     .button {
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
         background-color: #c43b68;
         color: #fff;
         border: none;
@@ -85,37 +78,56 @@
         font-size: 20px;
         cursor: pointer;
         box-shadow: 0px 0px 5px #333;
+        width: 100px;
+        justify-content: center;
     }
 
         .button:hover {
             background-color: #d9534f;
         }
+        
+     .yes {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+     }
+     .close {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 999;
+     }
 </style>
 
 <root>
-    <div class="container show-paper">
-        <div class="box">
-            <div class="arrow arrow-up" @onclick="@(() => UpValue(0))">&#x25B2;</div>
-            <div class="value">@input[0]</div>
-            <div class="arrow arrow-down" @onclick="@(() => DownValue(0))">&#x25BC;</div>
+    @if (visible)
+    {
+        <button class="button close" @onclick="@(() => ToggleKeypad())">Close</button>
+        <div class="container ">
+            <div class="box">
+                <div class="arrow arrow-up" @onclick="@(() => UpValue(0))">&#x25B2;</div>
+                <div class="value">@input[0]</div>
+                <div class="arrow arrow-down" @onclick="@(() => DownValue(0))">&#x25BC;</div>
+            </div>
+            <div class="box">
+                <div class="arrow arrow-up" @onclick="@(() => UpValue(1))">&#x25B2;</div>
+                <div class="value">@input[1]</div>
+                <div class="arrow arrow-down" @onclick="@(() => DownValue(1))">&#x25BC;</div>
+            </div>
+            <div class="box">
+                <div class="arrow arrow-up" @onclick="@(() => UpValue(2))">&#x25B2;</div>
+                <div class="value">@input[2]</div>
+                <div class="arrow arrow-down" @onclick="@(() => DownValue(2))">&#x25BC;</div>
+            </div>
+            <div class="box">
+                <div class="arrow arrow-up" @onclick="@(() => UpValue(3))">&#x25B2;</div>
+                <div class="value">@input[3]</div>
+                <div class="arrow arrow-down" @onclick="@(() => DownValue(3))">&#x25BC;</div>
+            </div>
+            <button class="button yes" @onclick="@(() => Confirm())">Confirm</button>
         </div>
-        <div class="box">
-            <div class="arrow arrow-up" @onclick="@(() => UpValue(1))">&#x25B2;</div>
-            <div class="value">@input[1]</div>
-            <div class="arrow arrow-down" @onclick="@(() => DownValue(1))">&#x25BC;</div>
-        </div>
-        <div class="box">
-            <div class="arrow arrow-up" @onclick="@(() => UpValue(2))">&#x25B2;</div>
-            <div class="value">@input[2]</div>
-            <div class="arrow arrow-down" @onclick="@(() => DownValue(2))">&#x25BC;</div>
-        </div>
-        <div class="box">
-            <div class="arrow arrow-up" @onclick="@(() => UpValue(3))">&#x25B2;</div>
-            <div class="value">@input[3]</div>
-            <div class="arrow arrow-down" @onclick="@(() => DownValue(3))">&#x25BC;</div>
-        </div>
-        <button class="button" @onclick="@(() => Confirm())">Confirm</button>
-    </div>
+    }
 </root>
 
 
@@ -125,7 +137,7 @@
 
     private int[] input = { 0, 0, 0, 0 };
 
-    private bool visible;
+    private bool visible = true;
 
 
 
