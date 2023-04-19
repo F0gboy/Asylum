@@ -18,6 +18,7 @@ partial class MyGame : GameManager
 	public static List<Key> keysCollected { get; private set; } = new();
 	public static PaperManager papers { get; private set; }
 	public static Countdown countdown { get; private set; }
+	private static PlayersReady playersReadyUi;
 
 	public MyGame()
 	{
@@ -34,9 +35,7 @@ partial class MyGame : GameManager
 			countdown = new Countdown();
 			
 			_ = new PlayersReady();
-			
-			var text = $"Players ready: {GetPlayersReady()}/{Game.Clients.Count}";
-			UpdatePlayerReadyText( To.Single( Game.LocalPawn as MyPlayer), text, true, allPlayersReady);
+			UpdateReadyUi(playersReady.Count, Game.Clients.Count);
 		}
 	}
 
@@ -62,6 +61,22 @@ partial class MyGame : GameManager
 	public static void CreateNotification( string text )
 	{
 		_ = new Notifications( text );
+	}
+
+	[ClientRpc]
+	public static void UpdateReadyUi(int readyCount, int playerIngame)
+	{
+		Log.Info( "Hej" );
+		Event.Run( "UpdateReady", readyCount, playerIngame );
+	}
+
+	[Event( "KeyCollected" )]
+	public void KeyCollected( Key keyCollected )
+	{
+		keysCollected.Add( keyCollected );
+		Log.Info( "Key collected" );
+	}
+
 	public static void SetPapers(PaperManager paperManager)
 	{
 		if ( papers.IsValid() ) return;
@@ -74,13 +89,11 @@ partial class MyGame : GameManager
 
 		playersReady.Add( client );
 
-		var text = $"Players ready: {GetPlayersReady()}/{Game.Clients.Count}";
-
 		if ( GetPlayersReady() == Game.Clients.Count ) allPlayersReady = true;
 
 		foreach (var loopClient in Game.Clients)
 		{
-			UpdatePlayerReadyText( To.Single( loopClient.Pawn as MyPlayer), text, false, allPlayersReady );
+			UpdateReadyUi( To.Single( loopClient.Pawn as MyPlayer ), playersReady.Count, Game.Clients.Count );
 		}
 	}
 
@@ -95,14 +108,12 @@ partial class MyGame : GameManager
 
 		var player = new MyPlayer( client );
 		client.Pawn = player;
-
+		
 		player.Respawn();
-
-		var text = $"Players ready: {GetPlayersReady()}/{Game.Clients.Count}";
 
 		foreach ( var loopClient in Game.Clients )
 		{
-			UpdatePlayerReadyText( To.Single( loopClient.Pawn as MyPlayer ), text, false, allPlayersReady );
+			UpdateReadyUi( To.Single( loopClient.Pawn as MyPlayer ), playersReady.Count, Game.Clients.Count );
 		}
 	}
 
@@ -196,16 +207,5 @@ partial class MyGame : GameManager
 		return true;
 	}
 
-	[ClientRpc]
-	public static void UpdatePlayerReadyText(string text, bool create, bool playersReady)
-	{
-		Event.Run( "UpdatePlayersReady", text, create, playersReady);
-	}
-
-	[Event("KeyCollected")]
-	public void KeyCollected( Key keyCollected )
-	{
-		keysCollected.Add( keyCollected );
-		Log.Info("Key collected" );
-	}
+	
 }
