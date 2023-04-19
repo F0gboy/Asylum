@@ -4,14 +4,116 @@
 @using Sandbox.UI
 
 <style>
-   Keypad { 
-      
-   }
-  
+    Keypad {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -150px; /* half of container height */
+        margin-left: -250px; /* half of container width */
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 300px;
+        width: 500px;
+        /* border-radius: 15px;
+            background-color: #43464B;
+            box-shadow: 5px 5px 5px rgba(255, 0, 0, 0.5);
+            color: #fff;*/
+    }
+
+    .box {
+        position: relative;
+        display: inline-block;
+        width: 100px;
+        height: 100px;
+        margin: 10px;
+        background: linear-gradient(135deg, #5a5a5a, #2b2b2b);
+        text-align: center;
+        font-size: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #444;
+        color: #fff;
+        border-radius: 5px;
+        box-shadow: 0px 0px 5px #333;
+        position: relative;
+    }
+
+    .value {
+        font-family: 'Courier New', Courier, monospace;
+    }
+
+    .arrow {
+        position: absolute;
+        top: -20px;
+        font-size: 20px;
+        color: #fff;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .arrow-up {
+        top: -25px;
+        margin-left: -10px; /* half of arrow width */
+
+    }
+
+    .arrow-down {
+        bottom: -20px;
+        margin-left: -10px; /* half of arrow width */
+        margin-top: 120px; /* height of the box plus some extra */
+    }
+
+    .button {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #c43b68;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 20px;
+        cursor: pointer;
+        box-shadow: 0px 0px 5px #333;
+    }
+
+        .button:hover {
+            background-color: #d9534f;
+        }
 </style>
+
 <root>
-   
+    <div class="container">
+        <div class="box">
+            <div class="arrow arrow-up">&#x25B2;</div>
+            <div class="value">0</div>
+            <div class="arrow arrow-down">&#x25BC;</div>
+        </div>
+        <div class="box">
+            <div class="arrow arrow-up">&#x25B2;</div>
+            <div class="value">0</div>
+            <div class="arrow arrow-down">&#x25BC;</div>
+        </div>
+        <div class="box">
+            <div class="arrow arrow-up">&#x25B2;</div>
+            <div class="value">0</div>
+            <div class="arrow arrow-down">&#x25BC;</div>
+        </div>
+        <div class="box">
+            <div class="arrow arrow-up">&#x25B2;</div>
+            <div class="value">0</div>
+            <div class="arrow arrow-down">&#x25BC;</div>
+        </div>
+        <button class="button">Confirm</button>
+    </div>
 </root>
+
 
 
 
