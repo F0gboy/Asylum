@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -69,13 +70,17 @@ namespace Sandbox.Entities
 			if (!correct) return;
 			lockedDoor.Locked = false;
 			lockedDoor.Open();
+
+			FindByName( "CombinationLock" )?.Delete();
 		}
 
+		public void DeleteLock()
+		{
+			this.Delete();
+		}
 		public static void TryOpenDoor()
 		{
 			if ( !MyGame.keypad.IsCodeCorrect() ) return;
-
-			Log.Info( "Døren åbnes" );
 
 			ClientBoolToServer( MyGame.keypad.IsCodeCorrect() );
 		}
