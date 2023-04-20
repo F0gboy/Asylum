@@ -21,7 +21,9 @@ namespace Sandbox.Entities
 		public EntityTarget door { get; private set; } = null;
 
 		private static DoorEntity lockedDoor;
-			
+
+		private static DoorEntity clientDoor;
+
 		public override void Spawn()
 		{
 			base.Spawn();
@@ -34,7 +36,7 @@ namespace Sandbox.Entities
 		{
 			var tempDoor = door.GetTarget();
 
-			if ( tempDoor is DoorEntity ) lockedDoor = (DoorEntity) tempDoor;
+			if ( tempDoor is DoorEntity ) lockedDoor = (DoorEntity)tempDoor;
 		}
 
 		public bool IsUsable( Entity user )
@@ -45,17 +47,37 @@ namespace Sandbox.Entities
 
 		public bool OnUse( Entity user )
 		{
-			MyGame.keypad.ToggleKeypad();
+			OpenKeypadClient( To.Single( user as MyPlayer ), lockedDoor );
 
 			return true;
 		}
-		
-		public static void OpenDoor()
+
+		[ClientRpc]
+		public static void OpenKeypadClient( DoorEntity door )
+		{
+			Keypad keypad = MyGame.keypad;
+
+			clientDoor = door;
+
+			if ( keypad.visible ) return;
+			keypad.ToggleKeypad();
+		}
+
+		[ConCmd.Server]
+		public static void ClientBoolToServer( bool correct )
+		{
+			if (!correct) return;
+			lockedDoor.Locked = false;
+			lockedDoor.Open();
+		}
+
+		public static void TryOpenDoor()
 		{
 			if ( !MyGame.keypad.IsCodeCorrect() ) return;
 
-			lockedDoor.Locked = false;
-			lockedDoor.Open();
+			Log.Info( "Døren åbnes" );
+
+			ClientBoolToServer( MyGame.keypad.IsCodeCorrect() );
 		}
 	}
 }

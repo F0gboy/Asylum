@@ -95,7 +95,8 @@ partial class MyGame : GameManager
 
 	public static void OpenOfficeDoor()
 	{
-		CombinationLock.OpenDoor();
+		Log.Info( "Kalder funktion til at åbne døren" );
+		CombinationLock.TryOpenDoor();
 	}
 
 	public static void AddPlayerReady( Sandbox.Entity client )
