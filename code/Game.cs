@@ -123,7 +123,7 @@ partial class MyGame : GameManager
 
 		var player = new MyPlayer( client );
 		client.Pawn = player;
-		
+
 		player.Respawn();
 
 		foreach ( var loopClient in Game.Clients )
