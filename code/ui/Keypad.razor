@@ -65,15 +65,15 @@
     .arrow {
         position: absolute;
         top: -20px;
-        font-size: 20px;
+        font-size: 30px;
         color: #fff;
         cursor: pointer;
         user-select: none;
     }
 
     .arrow-up {
-        top: -25px;
-        margin-left: -10px; /* half of arrow width */
+        top: -33px; /* position the arrow above the box */
+        margin-left: -15px; /* half of arrow width */
 
     }
 
@@ -81,8 +81,8 @@
         color: #4caf50; /* change color to green on hover */
     }
     .arrow-down {
-        bottom: -20px;
-        margin-left: -10px; /* half of arrow width */
+        bottom: -70px; /* position the arrow below the box */
+        margin-left: -15px; /* half of arrow width */
         margin-top: 120px; /* height of the box plus some extra */
     }
     .arrow-down:hover {
@@ -123,6 +123,7 @@
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
+        top: 0;
         z-index: 999;
         
      }
@@ -136,8 +137,8 @@
 <root>
     @if (visible)
     {
-        <button class="button close" @onclick="@(() => ToggleKeypad())">Close</button>
         <div class="container ">
+            <button class="button close" @onclick="@(() => ToggleKeypad())">Close</button>
             <div class="box box1">
                 <div class="arrow arrow-up" @onclick="@(() => UpValue(0))">&#x25B2;</div>
                 <div class="value">@input[0]</div>
