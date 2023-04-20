@@ -1,0 +1,51 @@
+@using Sandbox
+@inherits Sandbox.UI.RootPanel
+
+
+<style>
+    #black-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        opacity: 1;
+        transition: opacity 1s ease-in-out;
+    }
+
+    #reveal-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+    }
+</style>
+
+<root>
+    @if (isTrue)
+    {
+        <div id="black-screen"></div>
+    }
+    else
+    {
+        <div id="reveal-screen"></div>
+    }
+    
+</root>
+
+
+
+@code{ 
+
+    private bool isTrue = false;
+
+    
+
+
+
+
+}

@@ -32,6 +32,7 @@ partial class MyGame : GameManager
 		{
 			_ = new Interactebels();
 			_ = new Notifications( "You picked up a key.");
+			_ = new Blackout();
 			countdown = new Countdown();
 			
 			_ = new PlayersReady();
