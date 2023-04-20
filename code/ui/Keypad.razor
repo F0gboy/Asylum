@@ -77,12 +77,17 @@
 
     }
 
+    .arrow-up:hover {
+        color: #4caf50; /* change color to green on hover */
+    }
     .arrow-down {
         bottom: -20px;
         margin-left: -10px; /* half of arrow width */
         margin-top: 120px; /* height of the box plus some extra */
     }
-
+    .arrow-down:hover {
+    color: #ff4d4d; /* red color */
+    }
 
     .button {
         color: #fff;
@@ -95,12 +100,11 @@
         box-shadow: 0px 0px 5px #333;
         width: 110px;
         justify-content: center;
+        transition: all 0.3s ease;
+       
     }
 
-        .button:hover {
-            background-color: #d9534f;
-        }
-        
+   
      .yes {
         position: absolute;
         bottom: 0;
@@ -108,13 +112,25 @@
         transform: translateX(-50%);
         background: linear-gradient(135deg, #5a5a5a, #2b2b2b);
      }
+
+        .yes:hover {
+            background-color: #4caf50; /* green color */
+            box-shadow: 0 0 20px #4caf50; /* green color */
+        }
+
      .close {
         background: linear-gradient(135deg, #5a5a5a, #2b2b2b);
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
         z-index: 999;
+        
      }
+
+        .close:hover {
+            background-color: #ff4d4d;
+            box-shadow: 0 0 20px #ff4d4d;
+        }
 </style>
 
 <root>
