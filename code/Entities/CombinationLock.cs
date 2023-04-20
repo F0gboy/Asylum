@@ -82,6 +82,8 @@ namespace Sandbox.Entities
 		{
 			if ( !MyGame.keypad.IsCodeCorrect() ) return;
 
+			_ = new Notifications( "Door unlocked" );
+
 			ClientBoolToServer( MyGame.keypad.IsCodeCorrect() );
 		}
 	}
