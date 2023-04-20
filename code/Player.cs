@@ -45,18 +45,18 @@ namespace Sandbox
 		public override void Respawn()
 		{
 			SetModel( "models/citizen/citizen.vmdl" );
-
+			 // Få rettet lyset så det ikke lyser så kmeget
 			var pointLight = new PointLightEntity()
 			{
 				Position = Model.Bounds.Center,
-				Range = 100,
+				Range = 50,
 				Color = Color.White,
 				Brightness = 0.005f,
-				QuadraticAttenuation = 500,
+				QuadraticAttenuation = 2500,
 				Parent = this
 			};
 
-			
+
 
 			Controller = new WalkController();
 

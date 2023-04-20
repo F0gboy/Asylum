@@ -1,0 +1,32 @@
+{
+  "Title": "Puzzle Game",
+  "Type": "game",
+  "Org": "ngi",
+  "Ident": "puzzle_game",
+  "Tags": null,
+  "Schema": 1,
+  "HasAssets": true,
+  "AssetsPath": "",
+  "ResourcePaths": [],
+  "HasCode": true,
+  "CodePath": "/code/",
+  "PackageReferences": [],
+  "EditorReferences": null,
+  "Metadata": {
+    "MaxPlayers": 64,
+    "MinPlayers": 1,
+    "GameNetworkType": "Multiplayer",
+    "MapSelect": "Unrestricted",
+    "MapList": [
+      "asylumhaha"
+    ],
+    "RankType": "None",
+    "PerMapRanking": false,
+    "LeaderboardType": "None",
+    "ProjectTemplate": null,
+    "CsProjName": "",
+    "Summary": "",
+    "Description": "",
+    "Public": true
+  }
+}

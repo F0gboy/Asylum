@@ -23,6 +23,9 @@ public partial class ClockEntity : KeyframeEntity, IUse
 	[Property( Title = "Door name" ), Category( "Settings" )]
 	public string doorName { get; set; }
 
+	public Vector3 secondSpawn = new Vector3( 204, 203, 1682 );
+	//x 240 y 203 z 1682
+
 	public bool IsUsable( Entity user )
 	{
 		var pawn = user.Client.Pawn as MyPlayer;
@@ -39,6 +42,13 @@ public partial class ClockEntity : KeyframeEntity, IUse
 		if ( MyGame.GetPlayersReady() < Game.Clients.Count ) return false;
 
 		foreach ( DoorEntity entity in doors ) entity.Open();
+
+		var rand = new Random();
+		var playerIndex = rand.Next( 0, 2 );
+
+		var pawn = Game.Clients.ToList()[playerIndex].Pawn as MyPlayer;
+
+		pawn.Position = secondSpawn;
 
 		return false;
 	}

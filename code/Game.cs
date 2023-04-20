@@ -17,8 +17,12 @@ partial class MyGame : GameManager
 	private static List<Entity> papersCollected = new();
 	public static List<Key> keysCollected { get; private set; } = new();
 	public static PaperManager papers { get; private set; }
+	public static Keypad keypad { get; private set; }
 	public static Countdown countdown { get; private set; }
 	private static PlayersReady playersReadyUi;
+
+	List<SpotLightEntity> lights = new();
+	Random rand = new();
 
 	public MyGame()
 	{
@@ -84,6 +88,18 @@ partial class MyGame : GameManager
 		papers = paperManager;
 	}
 
+	public static void SetKeypad( Keypad pad )
+	{
+		if ( keypad.IsValid() ) return;
+		keypad = pad;
+	}
+
+	public static void OpenOfficeDoor()
+	{
+		Log.Info( "Kalder funktion til at åbne døren" );
+		CombinationLock.TryOpenDoor();
+	}
+
 	public static void AddPlayerReady( Sandbox.Entity client )
 	{
 		if ( playersReady.Contains( client ) ) return;
@@ -117,6 +133,121 @@ partial class MyGame : GameManager
 			UpdateReadyUi( To.Single( loopClient.Pawn as MyPlayer ), playersReady.Count, Game.Clients.Count );
 		}
 	}
+
+	public float startIntensity = 1;
+	public float minIntensity = 0.3f;
+	public float maxIntensity = 1f;
+	public int smoothing = 5;
+	public bool fullFlicker = false;
+	public float fullFlickerBias = 0;
+	Queue<float> smoothQueue;
+	float lastSum = 0;
+
+	[Event.Entity.PostSpawn]
+	public void OnPostSpawn()
+	{
+		smoothQueue = new Queue<float>( smoothing );
+		foreach (var ent in SpotLightEntity.All)
+		{
+			if ( ent is SpotLightEntity && ent.Name == "Flicker" )
+			{
+				SwitchFlickLight( (SpotLightEntity)ent );
+				//lights.Add( (SpotLightEntity)ent );
+			}
+		}
+	}
+
+	//[Event.Tick.Server]
+	//public void OnTick()
+	//{
+	//	foreach ( SpotLightEntity ent in lights )
+	//		FlickLight( ent );
+	//}
+
+	public async void SwitchFlickLight( SpotLightEntity spot )
+	{
+		Log.Info(spot.Brightness);
+		var onBrightness = spot.Brightness;
+		var wait = 0;
+
+		while ( true )
+		{
+			for ( float i = 1; i > 0; i -= .1f)
+			{
+				spot.Brightness = i;
+				await GameTask.Delay( 15 );
+			}
+
+			spot.Brightness = 0;
+
+			wait = rand.Next( 250, 1000 );
+			await GameTask.Delay( wait );
+			
+			spot.Brightness = onBrightness;
+
+			for ( float i = 0; i < 1; i += .1f )
+			{
+				spot.Brightness = i;
+				await GameTask.Delay( 15 );
+			}
+
+			spot.Brightness = 1;
+
+			wait = rand.Next( 250, 1000 );
+
+			for ( var i = 0; i < wait; i += 1000 / 60 )
+			{
+				await GameTask.Delay( 1000 / 60 );
+
+				FlickLight( spot );
+			}
+
+		}
+	}
+
+	public void FlickLight(SpotLightEntity spot )
+	{
+		maxIntensity = startIntensity;
+
+		spot.Brightness = startIntensity;
+
+		// pop off an item if too big
+		while ( smoothQueue.Count >= smoothing )
+		{
+			lastSum -= smoothQueue.Dequeue();
+		}
+
+		// Generate random new item, calculate new average
+		float newVal = rand.Float( minIntensity, maxIntensity );
+		smoothQueue.Enqueue( newVal );
+		lastSum += newVal;
+
+		float newIntensity = lastSum / (float)smoothQueue.Count;
+
+
+		spot.Brightness = newIntensity;
+
+		if ( fullFlicker )
+		{
+			if ( spot.Brightness > ((maxIntensity - minIntensity) / 2) + (-fullFlickerBias * (maxIntensity - minIntensity) / 2) )
+			{
+				spot.Brightness = maxIntensity;
+			}
+			else
+			{
+				spot.Brightness = minIntensity;
+			}
+		}
+	}
+
+	//[Event.Tick.Server]
+	//public void Tick()
+	//{
+	//	foreach ( SpotLightEntity light in lights )
+	//	{
+	//		light.Brightness = rand.Float( 1f, 0.5f );
+	//	}
+	//}
 
 	protected override void OnDestroy()
 	{

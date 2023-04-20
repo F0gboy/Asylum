@@ -18,6 +18,7 @@
         align-items: center;
         height: 300px;
         width: 500px;
+        pointer-events: all;
         /* border-radius: 15px;
             background-color: #43464B;
             box-shadow: 5px 5px 5px rgba(255, 0, 0, 0.5);
@@ -68,11 +69,8 @@
         margin-top: 120px; /* height of the box plus some extra */
     }
 
+
     .button {
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
         background-color: #c43b68;
         color: #fff;
         border: none;
@@ -81,82 +79,115 @@
         font-size: 20px;
         cursor: pointer;
         box-shadow: 0px 0px 5px #333;
+        width: 100px;
+        justify-content: center;
     }
 
         .button:hover {
             background-color: #d9534f;
         }
+        
+     .yes {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+     }
+     .close {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 999;
+     }
 </style>
 
 <root>
-    <div class="container">
-        <div class="box">
-            <div class="arrow arrow-up">&#x25B2;</div>
-            <div class="value">0</div>
-            <div class="arrow arrow-down">&#x25BC;</div>
+    @if (visible)
+    {
+        <button class="button close" @onclick="@(() => ToggleKeypad())">Close</button>
+        <div class="container ">
+            <div class="box">
+                <div class="arrow arrow-up" @onclick="@(() => UpValue(0))">&#x25B2;</div>
+                <div class="value">@input[0]</div>
+                <div class="arrow arrow-down" @onclick="@(() => DownValue(0))">&#x25BC;</div>
+            </div>
+            <div class="box">
+                <div class="arrow arrow-up" @onclick="@(() => UpValue(1))">&#x25B2;</div>
+                <div class="value">@input[1]</div>
+                <div class="arrow arrow-down" @onclick="@(() => DownValue(1))">&#x25BC;</div>
+            </div>
+            <div class="box">
+                <div class="arrow arrow-up" @onclick="@(() => UpValue(2))">&#x25B2;</div>
+                <div class="value">@input[2]</div>
+                <div class="arrow arrow-down" @onclick="@(() => DownValue(2))">&#x25BC;</div>
+            </div>
+            <div class="box">
+                <div class="arrow arrow-up" @onclick="@(() => UpValue(3))">&#x25B2;</div>
+                <div class="value">@input[3]</div>
+                <div class="arrow arrow-down" @onclick="@(() => DownValue(3))">&#x25BC;</div>
+            </div>
+            <button class="button yes" @onclick="@(() => Confirm())">Confirm</button>
         </div>
-        <div class="box">
-            <div class="arrow arrow-up">&#x25B2;</div>
-            <div class="value">0</div>
-            <div class="arrow arrow-down">&#x25BC;</div>
-        </div>
-        <div class="box">
-            <div class="arrow arrow-up">&#x25B2;</div>
-            <div class="value">0</div>
-            <div class="arrow arrow-down">&#x25BC;</div>
-        </div>
-        <div class="box">
-            <div class="arrow arrow-up">&#x25B2;</div>
-            <div class="value">0</div>
-            <div class="arrow arrow-down">&#x25BC;</div>
-        </div>
-        <button class="button">Confirm</button>
-    </div>
+    }
 </root>
-
-
 
 
 @code
 {
-    int[] code = { 1, 2, 3, 4 };
+    private int[] code = { 5, 1, 3, 4 };
 
-    int[] input = { 0, 0, 0, 0 };
+    private int[] input = { 0, 0, 0, 0 };
+
+    public bool visible { get; private set; }
+
+
+
+    public Keypad()
+    {
+        MyGame.SetKeypad(this);
+    }
+
+    public void ToggleKeypad()
+    {
+        visible = !visible;
+        StateHasChanged();
+    }
 
     private void UpValue(int index)
     {
-        if (input[index] < 9)
-        {
-            input[index]++;
-        }
-        else
-        {
-            input[index] = 0;
-        }
-
-        if (input == code) CorrectCode();
+        if (input[index] < 9) input[index]++;
+        else input[index] = 0;
 
         StateHasChanged();
     }
 
     private void DownValue(int index)
     {
-        if (input[index] > 0)
-        {
-            input[index]--;
-        }
-        else
-        {
-            input[index] = 9;
-        }
-
-        if (input == code) CorrectCode();
+        if (input[index] > 0) input[index]--;
+        else input[index] = 9;
 
         StateHasChanged();
     }
 
+    private void Confirm()
+    {
+        //If code is equal to input
+        if (input[0] == code[0] && input[1] == code[1] && input[2] == code[2] && input[3] == code[3] )
+        {
+            CorrectCode();
+        }
+    }
+
+    public bool IsCodeCorrect()
+    {
+        if (input[0] == code[0] && input[1] == code[1] && input[2] == code[2] && input[3] == code[3]) return true;
+        return false;
+    }
+
     private void CorrectCode()
     {
-        Log.Warning("Correct code entered.");
+        ToggleKeypad();
+
+        MyGame.OpenOfficeDoor();
     }
 }
