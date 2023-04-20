@@ -24,6 +24,9 @@
     "PerMapRanking": false,
     "LeaderboardType": "None",
     "ProjectTemplate": null,
-    "CsProjName": ""
+    "CsProjName": "",
+    "Summary": "",
+    "Description": "",
+    "Public": true
   }
 }

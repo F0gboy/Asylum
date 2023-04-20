@@ -23,8 +23,8 @@ public partial class ClockEntity : KeyframeEntity, IUse
 	[Property( Title = "Door name" ), Category( "Settings" )]
 	public string doorName { get; set; }
 
-	[Property( Title = "Second spawn"), Category( "Settings" )]
-	public Vector3 secondSpawn { get; set; }
+	public Vector3 secondSpawn = new Vector3( 204, 203, 1682 );
+	//x 240 y 203 z 1682
 
 	public bool IsUsable( Entity user )
 	{
