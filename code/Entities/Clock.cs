@@ -43,8 +43,11 @@ public partial class ClockEntity : KeyframeEntity, IUse
 
 		foreach ( DoorEntity entity in doors ) entity.Open();
 
+		if (Game.Clients.Count == 1) return false;
+
 		var rand = new Random();
-		var playerIndex = rand.Next( 0, 2 );
+
+		var playerIndex = rand.Next( 0, Game.Clients.Count );
 
 		var pawn = Game.Clients.ToList()[playerIndex].Pawn as MyPlayer;
 

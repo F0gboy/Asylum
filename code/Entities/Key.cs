@@ -36,6 +36,8 @@ namespace Sandbox.Entities
 		{
 			Event.Run( "KeyCollected", this );
 
+			MyGame.CreateNotification( To.Single( user as MyPlayer ), "You collected a key!" );
+
 			Delete();
 
 			return true;

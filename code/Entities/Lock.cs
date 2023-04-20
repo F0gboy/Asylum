@@ -57,6 +57,8 @@ namespace Sandbox.Entities
 
 			Delete();
 
+			MyGame.CreateNotification( To.Single( user as MyPlayer ), "Door unlocked" );
+
 			return true;
 		}
 	}

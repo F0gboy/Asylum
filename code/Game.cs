@@ -35,7 +35,6 @@ partial class MyGame : GameManager
 		if ( Game.IsClient )
 		{
 			_ = new Interactebels();
-			_ = new Notifications( "You picked up a key.");
 			countdown = new Countdown();
 			
 			_ = new PlayersReady();
