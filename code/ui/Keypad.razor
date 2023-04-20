@@ -155,28 +155,16 @@
 
     private void UpValue(int index)
     {
-        if (input[index] < 9)
-        {
-            input[index]++;
-        }
-        else
-        {
-            input[index] = 0;
-        }
+        if (input[index] < 9) input[index]++;
+        else input[index] = 0;
 
         StateHasChanged();
     }
 
     private void DownValue(int index)
     {
-        if (input[index] > 0)
-        {
-            input[index]--;
-        }
-        else
-        {
-            input[index] = 9;
-        }
+        if (input[index] > 0) input[index]--;
+        else input[index] = 9;
 
         StateHasChanged();
     }
