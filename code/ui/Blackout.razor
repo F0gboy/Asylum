@@ -23,12 +23,36 @@
         opacity: 0;
         transition: opacity 1s ease-in-out;
     }
+    .game-over {
+    font-family: 'Chiller', cursive;
+    font-size: 7em;
+    text-align: center;
+    color: black;
+    text-shadow: 0 0 10px red;
+    animation: blink;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+  }
+
+  @@keyframes blink {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.3;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 </style>
 
 <root>
     @if (isTrue)
     {
-        <div id="black-screen"></div>
+        <div id="black-screen">
+            <p class="game-over">Game Over</p>
+        </div>
     }
     else
     {
@@ -39,11 +63,12 @@
 
 
 
-@code{ 
+@code{
 
-    private bool isTrue = false;
+    private bool isTrue = true;
 
-    
+
+
 
 
 
