@@ -108,7 +108,11 @@ namespace Sandbox
 
 			if ( trace.Hit && trace.Entity is Entity ent && !markedObject.IsValid() && ent.Tags.Has( interactTag ) )
 			{
-				if ( ent is FrontDoor frontDoor && !MyGame.gameIsDone ) return;
+				if ( ent is FrontDoor frontDoor && !MyGame.gameIsDone )
+				{
+					Log.Info( "Huuuuuh" );
+					return;
+				}
 
 				markedObject = ent;
 
