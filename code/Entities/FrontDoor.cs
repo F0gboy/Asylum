@@ -12,7 +12,7 @@ namespace Sandbox.Entities
 	[RenderFields, VisGroup( VisGroup.Dynamic )]
 	[Model]
 	[Title( "FrontDoor" ), Category( "Lobby" ), Icon( "door_front" )]
-	public partial class FrontDoor : Entity, IUse
+	public partial class FrontDoor : KeyframeEntity, IUse
 	{
 		[Property( Title = "Activation distance" ), Category( "Settings" )]
 		public int activationDist { get; set; } = 100;
