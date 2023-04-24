@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Editor;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -7,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace Sandbox.Entities
 {
+	[HammerEntity, SupportsSolid]
+	[RenderFields, VisGroup( VisGroup.Dynamic )]
+	[Model]
+	[Title( "FrontDoor" ), Category( "Lobby" ), Icon( "door_front" )]
 	public partial class FrontDoor : Entity, IUse
 	{
 		[Property( Title = "Activation distance" ), Category( "Settings" )]
