@@ -105,32 +105,6 @@ namespace Sandbox
 
 			//	DebugOverlay.TraceResult( trace );
 			
-
-			if ( trace.Hit && trace.Entity is Entity ent && !markedObject.IsValid() && ent.Tags.Has( interactTag ) )
-			{
-				if ( ent is FrontDoor frontDoor && !MyGame.gameIsDone )
-				{
-					Log.Info( "Huuuuuh" );
-					return;
-				}
-
-				markedObject = ent;
-
-				var glow = ent.Components.GetOrCreate<Glow>();
-
-				if ( ent is DoorEntity door ) glow.Color = door.Locked ? Color.Red : Color.Gray;
-				else glow.Color = Color.Gray;
-
-				glow.Width = 0.25f;
-				glow.Enabled = true;
-			}
-
-			else if ( markedObject.IsValid() && trace.Entity != markedObject || !trace.Hit && markedObject.IsValid())
-			{
-				markedObject.Components.GetOrCreate<Glow>().Enabled = false;
-				markedObject = null;
-			}
-
 			var controller = GetActiveController();
 			if ( controller != null )
 			{
@@ -162,6 +136,30 @@ namespace Sandbox
 			if ( InputDirection.y != 0 || InputDirection.x != 0f )
 			{
 				timeSinceJumpReleased = 1;
+			}
+
+			if ( trace.Hit && trace.Entity is Entity ent && !markedObject.IsValid() && ent.Tags.Has( interactTag ) )
+			{
+				if ( ent is FrontDoor frontDoor && !MyGame.gameIsDone )
+				{
+					return;
+				}
+
+				markedObject = ent;
+
+				var glow = ent.Components.GetOrCreate<Glow>();
+
+				if ( ent is DoorEntity door ) glow.Color = door.Locked ? Color.Red : Color.Gray;
+				else glow.Color = Color.Gray;
+
+				glow.Width = 0.25f;
+				glow.Enabled = true;
+			}
+
+			else if ( markedObject.IsValid() && trace.Entity != markedObject || !trace.Hit && markedObject.IsValid() )
+			{
+				markedObject.Components.GetOrCreate<Glow>().Enabled = false;
+				markedObject = null;
 			}
 		}
 
