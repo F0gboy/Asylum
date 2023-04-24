@@ -45,5 +45,11 @@ namespace Sandbox.Entities
 		{
 			_ = new Blackout( text );
 		}
+
+		public override void Spawn()
+		{
+			base.Spawn();
+			SetupPhysicsFromModel( PhysicsMotionType.Static );
+		}
 	}
 }
