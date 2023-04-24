@@ -19,7 +19,7 @@ partial class MyGame : GameManager
 	public static PaperManager papers { get; private set; }
 	public static Keypad keypad { get; private set; }
 	public static Countdown countdown { get; private set; }
-	public static bool gameIsDone { get; set; }
+	public static bool gameIsDone { get; set; } = false;
 
 	List<SpotLightEntity> lights = new();
 	Random rand = new();
