@@ -24,9 +24,8 @@ public partial class ClockEntity : KeyframeEntity, IUse
 	public string doorName { get; set; }
 
 	public Vector3 secondSpawn = new Vector3( 437, 1695, 161 );
-	//x 240 y 203 z 1682
 
-	private bool gameStarted = false;
+    private bool gameStarted = false;
 
 	public bool IsUsable( Entity user )
 	{
@@ -44,9 +43,10 @@ public partial class ClockEntity : KeyframeEntity, IUse
 		if ( MyGame.GetPlayersReady() < Game.Clients.Count ) return false;
 
 		foreach ( DoorEntity entity in doors ) entity.Open();
-		StartCountdown(To.Everyone);
 
 		if (Game.Clients.Count == 1 || gameStarted) return false;
+
+		StartCountdown( To.Everyone );
 
 		var rand = new Random();
 
