@@ -58,7 +58,7 @@ namespace Sandbox.Entities
 			if ( lockedDoor.Name == "BasementDoor" )
 			{
 				Log.Info( "Basement unlocked" );
-				MyGame.gameIsDone = true;
+				GameIsDone(To.Everyone);
 			}
 
 			MyGame.CreateNotification( To.Single( user as MyPlayer ), "Door unlocked" );
@@ -66,6 +66,12 @@ namespace Sandbox.Entities
 			Delete();
 
 			return true;
+		}
+
+		[ClientRpc]
+		public static void GameIsDone()
+		{
+			MyGame.gameIsDone = false;
 		}
 	}
 }
