@@ -44,6 +44,7 @@ public partial class ClockEntity : KeyframeEntity, IUse
 		if ( MyGame.GetPlayersReady() < Game.Clients.Count ) return false;
 
 		foreach ( DoorEntity entity in doors ) entity.Open();
+		StartCountdown(To.Everyone);
 
 		if (Game.Clients.Count == 1 || gameStarted) return false;
 
@@ -64,6 +65,12 @@ public partial class ClockEntity : KeyframeEntity, IUse
 	public void AfterSpawn()
 	{
 		doors.AddRange( Entity.FindAllByName( doorName ) );
+	}
+
+	[ClientRpc]
+	public static void StartCountdown()
+	{
+		MyGame.countdown.StartCountdown();
 	}
 
 	public override void Spawn()

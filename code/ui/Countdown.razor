@@ -48,19 +48,26 @@
 <root> 
     @if (isTrue)
     {
-        <div class="box animate"><p>@countdownTime</p></div>
+        <div class="box animate"><p>@countdownText</p></div>
     }
     else
     {
-        <div class="box"><p>@countdownTime</p></div>
+        <div class="box"><p>@countdownText</p></div>
     }
     
 </root>
 
 @code{
-    private float countdownTime = 30;
-    private int interval = 15; //Seconds
+    private float countdownTime = 5;
+    private int interval = 300; //Seconds
     private bool isTrue = false;
+
+    private string countdownText;
+
+    public Countdown()
+    {
+        UpdateText();
+    }
 
     public async void StartCountdown()
     {
@@ -71,15 +78,33 @@
 
         while (countdownTime > 0)
         {
-
             countdownTime--;
 
             if (countdownTime % interval == 0) PlaySound("bell_sound");
 
+            UpdateText();
             StateHasChanged();
             await GameTask.Delay(1000);
         }
         isTrue = false;
         StateHasChanged();
+
+        PlaySound("door squeak - sound effect hd");
+
+        await GameTask.Delay(3820);
+
+        PlaySound("doorslam");
+
+        await GameTask.Delay(450);
+
+        _ = new Blackout();
+    }
+
+    private void UpdateText()
+    {
+        //Make seconds into minutes and seconds
+        var minutes = (int)countdownTime / 60;
+        var seconds = (int)countdownTime % 60;
+        countdownText = $"{minutes:00}:{seconds:00}";
     }
 }
