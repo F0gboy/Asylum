@@ -21,6 +21,8 @@ partial class MyGame : GameManager
 	public static Countdown countdown { get; private set; }
 	private static PlayersReady playersReadyUi;
 
+	public static bool gameIsDone = false;
+
 	List<SpotLightEntity> lights = new();
 	Random rand = new();
 

@@ -55,9 +55,11 @@ namespace Sandbox.Entities
 			lockedDoor.Locked = false;
 			lockedDoor.Open();
 
-			Delete();
+			if ( lockedDoor.Name == "BasementDoor" ) MyGame.gameIsDone = true;
 
 			MyGame.CreateNotification( To.Single( user as MyPlayer ), "Door unlocked" );
+
+			Delete();
 
 			return true;
 		}

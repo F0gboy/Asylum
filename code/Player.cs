@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Sandbox.Entities;
 using static Sandbox.Event;
 
 
@@ -107,6 +108,8 @@ namespace Sandbox
 
 			if ( trace.Hit && trace.Entity is Entity ent && !markedObject.IsValid() && ent.Tags.Has( interactTag ) )
 			{
+				if ( ent is FrontDoor frontDoor && !MyGame.gameIsDone ) return;
+
 				markedObject = ent;
 
 				var glow = ent.Components.GetOrCreate<Glow>();

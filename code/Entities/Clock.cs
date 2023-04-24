@@ -23,7 +23,7 @@ public partial class ClockEntity : KeyframeEntity, IUse
 	[Property( Title = "Door name" ), Category( "Settings" )]
 	public string doorName { get; set; }
 
-	public Vector3 secondSpawn = new Vector3( 204, 1682, 203 );
+	public Vector3 secondSpawn = new Vector3( 437, 1695, 161 );
 	//x 240 y 203 z 1682
 
 	private bool gameStarted = false;
